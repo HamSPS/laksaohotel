@@ -1,7 +1,7 @@
 <?php
 session_start();
 $path = '../../';
-$title = "ຈັດການຂໍ້ມູນຫ້ອງພັກ";
+$title = "ການຈອງຫ້ອງພັກ";
 
 if (!$_SESSION['user'] || $_SESSION == null) {
     header('location: pages/login');
@@ -45,22 +45,23 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                             <div class="card">
                                 <div class="card-body">
                                     <div class="toolbar">
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddModal"><i class="fas fa-plus"></i>
-                                            ເພີ່ມຂໍ້ມູນ</button>
-                                        <!-- <select class="form-control select" name="state">
-                                        </select> -->
+                                        <a href="add-booking" class="btn btn-success"><i class="fas fa-plus"></i>
+                                            ເພີ່ມຂໍ້ມູນ</a>
 
                                         <!-- <button type="button" id="deleteSelect" class="btn btn-danger" disabled><i class="fas fa-trash"></i> ລົບຂໍ້ມູນ</button> -->
                                     </div>
-                                    <table id="table" class="table data-table" data-classes="table table-hover table-striped" data-search="true" data-pagination="true" data-toggle="table" data-id-field="id" data-toolbar=".toolbar" data-search-highlight="true" data-click-to-select="true" data-url="http://localhost/laksaohotel/api/room/fetch">
+                                    <table id="table" class="table data-table" data-classes="table table-hover table-striped" data-search="true" data-pagination="true" data-toggle="table" data-id-field="id" data-toolbar=".toolbar" data-search-highlight="true" data-click-to-select="true" data-url="http://localhost/laksaohotel/api/booking/fetch">
                                         <thead>
                                             <tr class="text-center table-success">
                                                 <!-- <th data-field="state" data-checkbox="true"></th> -->
-                                                <th data-field="key" data-sortable="true" class="text-center">#</th>
-                                                <th data-field="room_no" data-sortable="true">ລະຫັດຫ້ອງ</th>
-                                                <th data-field="type_name" data-sortable="true">ປະເພດຫ້ອງພັກ</th>
-                                                <th data-field="price" data-sortable="true">ລາຄາ</th>
-                                                <th data-field="room_status" data-sortable="true">ສະຖານະຫ້ອງ</th>
+                                                <th data-field="key" data-sortable="true">#</th>
+                                                <th data-field="book_date" data-sortable="true">ວັນທີເວລາທີ່ຈອງ</th>
+                                                <th data-field="start_date" data-sortable="true">ເຂົ້າພັກວັນທີ</th>
+                                                <th data-field="end_date" data-sortable="true">ສິ້ນສຸດວັນທີ</th>
+                                                <th data-field="room_no" data-sortable="true">ຫ້ອງພັກ</th>
+                                                <th data-field="type_name" data-sortable="true">ປະເພດຫ້ອງ</th>
+                                                <th data-field="cus_name" data-sortable="true">ລູກຄ້າ</th>
+                                                <th data-field="status" data-sortable="true">ສະຖານະ</th>
                                                 <th data-field="operate" data-formatter="operateFormatter" class="text-center mx-0"></th>
                                             </tr>
                                         </thead>
@@ -72,78 +73,65 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                 </div><!-- /.container-fluid -->
             </section>
 
+            <!-- View Modal -->
 
-            <!-- From Create Modal -->
-            <form novalidate class="needs-validation" id="add_form">
-                <div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="AddModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="AddModalLabel">ເພີ່ມຂໍ້ມູນ</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="room_no">ເບີຫ້ອງ <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="room_no" placeholder="ເບີຫ້ອງ" required>
-                                    <small class="invalid-feedback">
-                                        ກະລຸນາປ້ອນເບີຫ້ອງ
-                                    </small>
+            <div class="modal fade" id="ViewModal" tabindex="-1" role="dialog" aria-labelledby="ViewModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ViewModalLabel">ລາຍລະອຽດ</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="max-height: 75vh;overflow-y: scroll;">
+                            <div class="d-flex justify-content-around w-100">
+                                <div>
+                                    <h5>ຂໍ້ມູນການຈອງ</h5>
+                                    <h6>ວັນທີເວລາທີ່ຈອງ</h6>
+                                    <p class="text-primary" id="date"></p>
+                                    <h6>ວັນທີ່ເຂົ້າພັກ</h6>
+                                    <p class="text-primary" id="inDate"></p>
+                                    <h6>ວັນທີອອກ</h6>
+                                    <p class="text-primary" id="outDate"></p>
+                                    <h6>ຈຳນວນວັນເຂົ້າພັກ</h6>
+                                    <p class="text-primary" id="totalDate"></p>
                                 </div>
-                                <div class="form-group">
-                                    <label for="type_id">ປະເພດຫ້ອງພັກ <span class="text-danger">*</span></label>
-                                    <select name="type_id" id="type_id" class="form-control select" title="ເລືອກປະເພດຫ້ອງພັກ" required></select>
-                                    <small class="invalid-feedback">
-                                        ກະລຸນາເລືອກປະເພດຫ້ອງພັກ
-                                    </small>
+                                <div>
+                                    <h5>ຂໍ້ມູນຫ້ອງພັກ</h5>
+                                    <h6>ເບີຫ້ອງພັກ</h6>
+                                    <p class="text-primary" id="roomNo"></p>
+                                    <h6>ປະເພດຫ້ອງພັກ</h6>
+                                    <p class="text-primary" id="roomType"></p>
+                                    <h6>ລາຄາຫ້ອງຕໍ່ຄືນ</h6>
+                                    <p class="text-primary" id="roomPrice" class="kip-format"></p>
+                                </div>
+                                <div>
+                                    <h5>ຂໍ້ມູນລູກຄ້າ</h5>
+                                    <h6>ລະຫັດສະມາຊິກລູກຄ້າ</h6>
+                                    <p class="text-primary" id="cusNo"></p>
+                                    <h6>ຊື່ລູກຄ້າ</h6>
+                                    <p class="text-primary" id="cusName"></p>
+                                    <h6>ເພດ</h6>
+                                    <p class="text-primary" id="cusGender"></p>
+                                    <h6>ເບີໂທ</h6>
+                                    <p class="text-primary" id="cusTel"></p>
+                                    <h6>ທີ່ຢູ່</h6>
+                                    <p class="text-primary" id="cusAddress"></p>
+                                    <h6>ເລກບັດປະຈຳຕົວ ຫຼື ໜັງສືຜ່ານແດນ</h6>
+                                    <p class="text-primary" id="cusIdCard"></p>
+
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">ຍົກເລີກ</button>
-                                <button type="submit" class="btn btn-success">ບັນທຶກ</button>
-                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">ຍົກເລີກ</button>
+                            <button type="submit" class="btn btn-success">ບັນທຶກ</button>
                         </div>
                     </div>
                 </div>
-            </form>
-
-            <!-- From Update Modal -->
-            <form novalidate class="needs-validation" id="edit_form">
-                <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="EditModalLabel">ແກ້ໄຂຂໍ້ມູນ</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="room_no_update">ເບີຫ້ອງ <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="room_no_update" placeholder="ເບີຫ້ອງ" required>
-                                    <small class="invalid-feedback">
-                                        ກະລຸນາປ້ອນເບີຫ້ອງ
-                                    </small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="type_id_update">ປະເພດຫ້ອງພັກ <span class="text-danger">*</span></label>
-                                    <select name="type_id_update" id="type_id_update" class="form-control select" title="ເລືອກປະເພດຫ້ອງພັກ" required></select>
-                                    <small class="invalid-feedback">
-                                        ກະລຸນາເລືອກປະເພດຫ້ອງພັກ
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">ຍົກເລີກ</button>
-                                <button type="submit" class="btn btn-success">ບັນທຶກ</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            </div>
 
             <!-- /.content -->
         </div>
@@ -163,49 +151,40 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
     <script>
         $(document).ready(function() {
-            var select = $('.select');
-            select.selectpicker();
-
-            load_type();
-
-            function load_type() {
-                $.ajax({
-                    url: '<?= $path ?>api/room/find_type',
-                    dataType: 'json',
-                    success: function(data) {
-                        var html = '';
-                        for (var count = 0; count < data.length; count++) {
-                            html += '<option value="' + data[count].id + '">' + data[count].name +
-                                '</option>';
-                        }
-
-                        select.html(html);
-                        select.selectpicker('refresh');
-                    }
-                })
-            }
 
             $('#add_form').on('submit', function(e) {
                 e.preventDefault();
 
-                let $room_no = $('#room_no').val();
-                let $type_id = $('#type_id').val();
+                let $code = $('#code').val();
+                let $name = $('#name').val();
+                let $gender = $('#gender').val();
+                let $tel = $('#tel').val();
+                let $address = $('#address').val();
+                let $card_no = $('#card_no').val();
 
-                if ($room_no != null && $type_id != null) {
+                if ($code != null && $name != null && $gender != null && $card_no != null) {
                     $.ajax({
-                        url: '<?= $path ?>api/room/insert',
+                        url: '<?= $path ?>api/customer/insert',
                         type: 'post',
                         data: {
-                            'room_no': $room_no,
-                            'type_id': $type_id,
+                            'code': $code,
+                            'name': $name,
+                            'gender': $gender,
+                            'tel': $tel,
+                            'address': $address,
+                            'card_no': $card_no,
                         },
                         cache: false,
                         success: function(dataResult) {
                             let result = JSON.parse(dataResult);
                             $('#AddModal').modal('hide');
 
-                            $('#room_no').val("");
-                            $('#type_id').val("");
+                            $('#code').val("");
+                            $('#name').val("");
+                            $('#gender').val("");
+                            $('#tel').val("");
+                            $('#address').val("");
+                            $('#card_no').val("");
 
                             $('#add_form').removeClass('was-validate');
 
@@ -243,18 +222,26 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
                 if (updateId != null) {
 
-                    let $room_no = $('#room_no_update').val();
-                    let $type_id = $('#type_id_update').val();
+                    let $code = $('#code_update').val();
+                    let $name = $('#name_update').val();
+                    let $gender = $('#gender_update').val();
+                    let $tel = $('#tel_update').val();
+                    let $address = $('#address_update').val();
+                    let $card_no = $('#card_no_update').val();
 
-                    if ($room_no != '' && $type_id != '') {
+                    if ($code != '' && $name != '' && $gender != '' && $card_no != '') {
                         $.ajax({
-                            url: '<?= $path ?>api/room/update',
+                            url: '<?= $path ?>api/customer/update',
                             type: 'post',
                             data: {
                                 'action': 'update',
                                 'id': updateId,
-                                'room_no': $room_no,
-                                'type_id': $type_id,
+                                'code': $code,
+                                'name': $name,
+                                'gender': $gender,
+                                'tel': $tel,
+                                'address': $address,
+                                'card_no': $card_no,
                             },
                             cache: false,
                             success: function(dataResult) {
@@ -262,8 +249,12 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
                                 $('#EditModal').modal('hide');
 
-                                $('#room_no_update').val("");
-                                $('#type_id_update').val(0);
+                                $('#code_update').val("");
+                                $('#name_update').val("");
+                                $('#gender_update').val("");
+                                $('#tel_update').val("");
+                                $('#address_update').val("");
+                                $('#card_no_update').val("");
 
                                 $('#edit_form').removeClass('was-validate');
 
@@ -305,7 +296,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
             let action = "check";
 
             $.ajax({
-                url: '<?= $path ?>api/room/update',
+                url: '<?= $path ?>api/customer/update',
                 type: 'post',
                 data: {
                     action: action,
@@ -318,8 +309,12 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
                     if (result) {
 
-                        $('#room_no_update').val(result[0].room_no);
-                        $('#type_id_update').val(result[0].type_id);
+                        $('#code_update').val(result[0].code);
+                        $('#name_update').val(result[0].name);
+                        $('#gender_update').val(result[0].gender);
+                        $('#tel_update').val(result[0].tel);
+                        $('#address_update').val(result[0].address);
+                        $('#card_no_update').val(result[0].card_no);
 
                         $('#EditModal').modal('show');
 
@@ -330,10 +325,10 @@ if (!$_SESSION['user'] || $_SESSION == null) {
             })
         }
 
-        function checkDelete(id) {
+        function cancelBook(id) {
             Swal.fire({
                 title: 'ຄຳຖາມ',
-                text: "ເຈົ້າຕ້ອງການລົບຈິງ ຫຼື ບໍ່?",
+                text: "ເຈົ້າຕ້ອງການຍົກເລີກການຈອງ ຫຼື ບໍ່?",
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -343,7 +338,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '<?= $path ?>api/room/delete',
+                        url: '<?= $path ?>api/booking/cancel',
                         type: 'post',
                         data: {
                             'id': id,
@@ -367,7 +362,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                 Swal.fire({
                                     position: 'top-end',
                                     icon: 'error',
-                                    title: result.message,
+                                    title: result[0].message,
                                     showConfirmButton: false,
                                     timer: 3000,
                                     toast: true,
@@ -381,11 +376,42 @@ if (!$_SESSION['user'] || $_SESSION == null) {
             })
         }
 
+        function viewBook(id) {
+            $.ajax({
+                url: '<?= $path ?>api/booking/findOne',
+                type: 'post',
+                data: {
+                    id: id,
+                },
+                success: function(result) {
+                    let data = JSON.parse(result);
+
+                    $('#ViewModal').modal('show');
+
+                    $('#date').html(data[0].book_date);
+                    $('#inDate').html(data[0].start_date);
+                    $('#outDate').html(data[0].end_date);
+                    $('#totalDate').html(data[0].total_date);
+                    $('#roomNo').html(data[0].room_no);
+                    $('#roomType').html(data[0].type_name);
+                    $('#roomPrice').html(data[0].price);
+                    $('#cusNo').html(data[0].cus_code);
+                    $('#cusName').html(data[0].cus_name);
+                    $('#cusGender').html(data[0].cus_gender);
+                    $('#cusTel').html(data[0].cus_tel);
+                    $('#cusAddress').html(data[0].cus_address);
+                    $('#cusIdCard').html(data[0].cardId_or_passport);
+
+
+                }
+            })
+        }
+
         function operateFormatter(value, row, index) {
             return [
                 `
-            <a href="#" onclick="checkUpdate('${row.id}')" class="btn btn-success btn-sm rounded-circle btnUpdate"><i class="fas fa-pen"></i></a>
-            <a href="#" onclick="checkDelete('${row.id}')" class="btn btn-danger btn-sm rounded-circle btnDelete"><i class="fas fa-trash"></i></a>
+            <a href="#" onclick="viewBook('${row.id}')" class="btn btn-success btn-sm rounded-circle btnUpdate"><i class="fas fa-eye"></i></a>
+            <a href="#" onclick="cancelBook('${row.id}')" class="btn btn-danger btn-sm rounded-circle btnUpdate"><i class="fa fa-times"></i></a>
             `
             ].join('')
         }

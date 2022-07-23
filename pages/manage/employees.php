@@ -50,7 +50,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
                                         <!-- <button type="button" id="deleteSelect" class="btn btn-danger" disabled><i class="fas fa-trash"></i> ລົບຂໍ້ມູນ</button> -->
                                     </div>
-                                    <table id="table" class="table table-striped table-borderless data-table" data-search="true" data-pagination="true" data-toggle="table" data-id-field="id" data-toolbar=".toolbar" data-search-highlight="true" data-click-to-select="true" data-url="http://localhost/laksaohotel/api/employee/fetch">
+                                    <table id="table" class="table data-table" data-classes="table table-hover table-striped" data-search="true" data-pagination="true" data-toggle="table" data-id-field="id" data-toolbar=".toolbar" data-search-highlight="true" data-click-to-select="true" data-url="http://localhost/laksaohotel/api/employee/fetch">
                                         <thead class="table-success">
                                             <tr class="text-center">
                                                 <!-- <th data-field="state" data-checkbox="true"></th> -->

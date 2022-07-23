@@ -20,6 +20,8 @@
 <link rel="stylesheet" href="<?= $path ?>assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 <!-- Daterange picker -->
 <link rel="stylesheet" href="<?= $path ?>assets/plugins/daterangepicker/daterangepicker.css">
+<!-- Full Calendar -->
+<link rel="stylesheet" href="<?= $path ?>assets/plugins/fullcalendar/main.min.css">
 <!-- summernote -->
 <link rel="stylesheet" href="<?= $path ?>assets/plugins/summernote/summernote-bs4.min.css">
 <!-- Sweetalert 2 -->

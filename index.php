@@ -42,7 +42,7 @@ include 'layouts/style.php';
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-
+                        <p>Dashboard work</p>
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->

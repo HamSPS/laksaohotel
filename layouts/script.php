@@ -24,6 +24,8 @@
 <!-- daterangepicker -->
 <script src="<?= $path ?>assets/plugins/moment/moment.min.js"></script>
 <script src="<?= $path ?>assets/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Full Calendar -->
+<script src="<?= $path ?>assets/plugins/fullcalendar/main.min.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="<?= $path ?>assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summernote -->

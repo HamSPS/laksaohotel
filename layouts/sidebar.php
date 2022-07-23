@@ -53,6 +53,23 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-header">ບໍລິການ</li>
+                <li class="nav-item">
+                    <a href="<?= $path ?>pages/booking/booking" class="nav-link">
+                        <i class="nav-icon fas fa-calendar-alt"></i>
+                        <p>
+                            ຈອງຫ້ອງພັກ
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= $path ?>pages/check-in/index" class="nav-link">
+                        <i class="nav-icon fas fa-calendar-check"></i>
+                        <p>
+                            ເຂົ້າພັກ
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
