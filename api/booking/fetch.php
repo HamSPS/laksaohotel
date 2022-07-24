@@ -17,15 +17,6 @@ if ($result->num_rows > 0) {
 
     foreach ($result as $key => $row) {
 
-        if ($row['end_date'] > $today){
-            $status = '<span class="text-small badge badge-info">ຮອດມື້ທີ່ຈອງແລ້ວ</span>';
-        }elseif($row['start_date'] <= $today){
-            $status = '<span class="text-small badge badge-danger">ໝົດກຳນົດຈອງ</span>';
-        }
-        else{
-            $status = '<span class="text-small badge badge-success">ຢູ່ໃນການຈອງ</span>';
-        }
-
         if($today >= $row['start_date'] && $today <= $row['end_date']){
             $status = '<span class="text-small badge badge-info">ຮອດມື້ທີ່ຈອງແລ້ວ</span>';
         }elseif($today > $row['end_date']){

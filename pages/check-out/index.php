@@ -45,19 +45,17 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                             <div class="card">
                                 <div class="card-body">
                                     <div class="toolbar">
-                                        <a href="add-booking" class="btn btn-success"><i class="fas fa-plus"></i>
-                                            ເພີ່ມຂໍ້ມູນ</a>
+                                        <!-- <a href="add-booking" class="btn btn-success"><i class="fas fa-plus"></i>
+                                            ເພີ່ມຂໍ້ມູນ</a> -->
 
                                         <!-- <button type="button" id="deleteSelect" class="btn btn-danger" disabled><i class="fas fa-trash"></i> ລົບຂໍ້ມູນ</button> -->
                                     </div>
-                                    <table id="table" class="table data-table" data-classes="table table-hover table-striped" data-search="true" data-pagination="true" data-toggle="table" data-id-field="id" data-toolbar=".toolbar" data-search-highlight="true" data-click-to-select="true" data-url="http://localhost/laksaohotel/api/booking/fetch">
+                                    <table id="table" class="table data-table" data-classes="table table-hover table-striped" data-search="true" data-pagination="true" data-toggle="table" data-id-field="id" data-toolbar=".toolbar" data-search-highlight="true" data-click-to-select="true" data-url="http://localhost/laksaohotel/api/check-out/fetch">
                                         <thead>
                                             <tr class="text-center table-success">
                                                 <!-- <th data-field="state" data-checkbox="true"></th> -->
                                                 <th data-field="key" data-sortable="true">#</th>
-                                                <th data-field="book_date" data-sortable="true">ວັນທີເວລາທີ່ຈອງ</th>
-                                                <th data-field="start_date" data-sortable="true">ເຂົ້າພັກວັນທີ</th>
-                                                <th data-field="end_date" data-sortable="true">ສິ້ນສຸດວັນທີ</th>
+                                                <th data-field="check_in_date" data-sortable="true">ວັນທີ່ເຂົ້າພັກ</th>
                                                 <th data-field="room_no" data-sortable="true">ຫ້ອງພັກ</th>
                                                 <th data-field="type_name" data-sortable="true">ປະເພດຫ້ອງ</th>
                                                 <th data-field="cus_name" data-sortable="true">ລູກຄ້າ</th>
@@ -73,65 +71,47 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                 </div><!-- /.container-fluid -->
             </section>
 
-            <!-- View Modal -->
+            <!-- Check Out Modal -->
 
-            <div class="modal fade" id="ViewModal" tabindex="-1" role="dialog" aria-labelledby="ViewModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="ViewModalLabel">ລາຍລະອຽດ</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body" style="max-height: 75vh;overflow-y: scroll;">
-                            <div class="d-flex justify-content-around w-100">
-                                <div>
-                                    <h5>ຂໍ້ມູນການຈອງ</h5>
-                                    <h6>ວັນທີເວລາທີ່ຈອງ</h6>
-                                    <p class="text-primary" id="date"></p>
-                                    <h6>ວັນທີ່ເຂົ້າພັກ</h6>
-                                    <p class="text-primary" id="inDate"></p>
-                                    <h6>ວັນທີອອກ</h6>
-                                    <p class="text-primary" id="outDate"></p>
-                                    <h6>ຈຳນວນວັນເຂົ້າພັກ</h6>
-                                    <p class="text-primary" id="totalDate"></p>
+            <form id="checkOutForm" novalidate class="needs-validation">
+                <div class="modal fade" id="checkOutModal" tabindex="-1" role="dialog" aria-labelledby="checkOutModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="checkOutModalLabel">ຂໍ້ມູນການຈອງ</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="max-height: 75vh;overflow-y: scroll;">
+                                <p>ວັນທີ່ເຂົ້າພັກ: <span id="checkInDate"></span></p>
+                                <p>ເບີຫ້ອງ: <span id="roomNo"></span></p>
+                                <p>ປະເພດຫ້ອງພັກ: <span id="type"></span></p>
+                                <p>ລາຄາ: <span id="price"></span></p>
+                                <p>ລະຫັດລູກຄ້າ: <span id="cusNo"></span></p>
+                                <p>ຊື່ລູກຄ້າ: <span id="cusName"></span></p>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="">ຈຳນວນວັນເຂົ້າພັກ</label>
+                                    <input type="text" class="form-control" id="total_date" readonly>
                                 </div>
-                                <div>
-                                    <h5>ຂໍ້ມູນຫ້ອງພັກ</h5>
-                                    <h6>ເບີຫ້ອງພັກ</h6>
-                                    <p class="text-primary" id="roomNo"></p>
-                                    <h6>ປະເພດຫ້ອງພັກ</h6>
-                                    <p class="text-primary" id="roomType"></p>
-                                    <h6>ລາຄາຫ້ອງຕໍ່ຄືນ</h6>
-                                    <p class="text-primary" id="roomPrice" class="kip-format"></p>
+                                <div class="form-group">
+                                    <label for="">ລວມເປັນເງິນຕ້ອງຈ່າຍ</label>
+                                    <input type="text" name="amount" id="amount" class="form-control" readonly>
                                 </div>
-                                <div>
-                                    <h5>ຂໍ້ມູນລູກຄ້າ</h5>
-                                    <h6>ລະຫັດສະມາຊິກລູກຄ້າ</h6>
-                                    <p class="text-primary" id="cusNo"></p>
-                                    <h6>ຊື່ລູກຄ້າ</h6>
-                                    <p class="text-primary" id="cusName"></p>
-                                    <h6>ເພດ</h6>
-                                    <p class="text-primary" id="cusGender"></p>
-                                    <h6>ເບີໂທ</h6>
-                                    <p class="text-primary" id="cusTel"></p>
-                                    <h6>ທີ່ຢູ່</h6>
-                                    <p class="text-primary" id="cusAddress"></p>
-                                    <h6>ເລກບັດປະຈຳຕົວ ຫຼື ໜັງສືຜ່ານແດນ</h6>
-                                    <p class="text-primary" id="cusIdCard"></p>
-
+                                <div class="form-group">
+                                    <label for="">ເງິນທີ່ຈ່າຍ</label>
+                                    <input type="text" name="pay" id="pay" class="form-control kip-format" placeholder="ປ້ອນຈຳນວນເງິນ" required>
                                 </div>
                             </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">ຍົກເລີກ</button>
-                            <button type="submit" class="btn btn-success">ບັນທຶກ</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">ປິດ</button>
+                                <button type="submit" class="btn btn-success">ບັນທຶກ</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
 
             <!-- /.content -->
         </div>
@@ -288,133 +268,132 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                 }
             });
 
-        })
+        });
 
-        var updateId = '';
+        $('#checkOutForm').on('submit', function(e) {
+            e.preventDefault();
 
-        function checkUpdate(id) {
-            let action = "check";
+            let pay = $('#pay').priceToFloat();
 
-            $.ajax({
-                url: '<?= $path ?>api/customer/update',
-                type: 'post',
-                data: {
-                    action: action,
-                    id: id,
-                },
-                dataType: 'text',
-                cache: false,
-                success: function(data) {
-                    let result = JSON.parse(data);
+            if (pay === 0 || pay === '') {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'ກະລຸນາປ້ອນຈຳນວນເງິນ',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    toast: false,
+                    timerProgressBar: true,
+                });
+            } else {
 
-                    if (result) {
+                if (amount <= pay) {
 
-                        $('#code_update').val(result[0].code);
-                        $('#name_update').val(result[0].name);
-                        $('#gender_update').val(result[0].gender);
-                        $('#tel_update').val(result[0].tel);
-                        $('#address_update').val(result[0].address);
-                        $('#card_no_update').val(result[0].card_no);
-
-                        $('#EditModal').modal('show');
-
-                        updateId = result[0].id;
-                    }
-
-                }
-            })
-        }
-
-        function cancelBook(id) {
-            Swal.fire({
-                title: 'ຄຳຖາມ',
-                text: "ເຈົ້າຕ້ອງການຍົກເລີກການຈອງ ຫຼື ບໍ່?",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'ຕົກລົງ',
-                cancelButtonText: 'ຍົກເລີກ',
-            }).then((result) => {
-                if (result.isConfirmed) {
                     $.ajax({
-                        url: '<?= $path ?>api/booking/cancel',
+                        url: '<?= $path ?>api/check-out/check_out',
                         type: 'post',
                         data: {
-                            'id': id,
+                            id: checkOutId,
+                            amount: amount,
+                            pay: pay
                         },
                         cache: false,
-                        success: function(data) {
-                            let result = JSON.parse(data);
+                        success: function(result) {
+                            let data = JSON.parse(result);
+                            $('#checkOutModal').modal('hide');
 
-                            if (result.statusCode === 200) {
+                            $('.data-table').bootstrapTable('refresh');
+
+                            console.log(data);
+
+                            if (data[0].statusCode === 200) {
                                 Swal.fire({
                                     position: 'top-end',
                                     icon: 'success',
-                                    title: result.message,
+                                    title: data[0].message,
                                     showConfirmButton: false,
                                     timer: 3000,
                                     toast: true,
                                     timerProgressBar: true,
                                 });
-                                $('.data-table').bootstrapTable('refresh');
                             } else {
                                 Swal.fire({
                                     position: 'top-end',
                                     icon: 'error',
-                                    title: result[0].message,
+                                    title: data[0].message,
                                     showConfirmButton: false,
                                     timer: 3000,
                                     toast: true,
                                     timerProgressBar: true,
                                 });
-                                $('.data-table').bootstrapTable('refresh');
                             }
+
                         }
                     })
-                }
-            })
-        }
 
-        function viewBook(id) {
+
+                } else {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'ກະລຸນາປ້ອນຈຳນວນເງິນໃຫ້ຄົບຖ້ວນ',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        toast: false,
+                        timerProgressBar: true,
+                    });
+
+                }
+            }
+        })
+
+
+        var checkOutId = '';
+        var amount = '';
+
+        function checkOut(id) {
+            this.checkOutId = id;
+
             $.ajax({
-                url: '<?= $path ?>api/booking/findOne',
+                url: '<?= $path ?>api/check-out/prepare_check_out',
                 type: 'post',
                 data: {
                     id: id,
                 },
-                success: function(result) {
-                    let data = JSON.parse(result);
+                cache: false,
+                success: function(data) {
+                    let result = JSON.parse(data);
 
-                    $('#ViewModal').modal('show');
+                    $('#checkInDate').html(result[0].check_in_date);
+                    $('#roomNo').html(result[0].room_no);
+                    $('#type').html(result[0].type_name);
+                    $('#price').html("LAK " + result[0].price.toLocaleString('en-US'));
+                    $('#cusNo').html(result[0].cus_no);
+                    $('#cusName').html(result[0].cus_name);
 
-                    $('#date').html(data[0].book_date);
-                    $('#inDate').html(data[0].start_date);
-                    $('#outDate').html(data[0].end_date);
-                    $('#totalDate').html(data[0].total_date);
-                    $('#roomNo').html(data[0].room_no);
-                    $('#roomType').html(data[0].type_name);
-                    $('#roomPrice').html(data[0].price);
-                    $('#cusNo').html(data[0].cus_code);
-                    $('#cusName').html(data[0].cus_name);
-                    $('#cusGender').html(data[0].cus_gender);
-                    $('#cusTel').html(data[0].cus_tel);
-                    $('#cusAddress').html(data[0].cus_address);
-                    $('#cusIdCard').html(data[0].cardId_or_passport);
+                    $('#total_date').val(result[0].total_date);
+
+                    amount = result[0].amount;
+                    $('#amount').val("LAK " + result[0].amount.toLocaleString('en-Us'));
 
 
                 }
             })
+
+            $('#checkOutModal').modal('show');
+
+
+
         }
 
         function operateFormatter(value, row, index) {
             return [
                 `
-            <a href="#" onclick="viewBook('${row.id}')" class="btn btn-success btn-sm rounded-circle btnUpdate"><i class="fas fa-eye"></i></a>
-            <a href="#" onclick="cancelBook('${row.id}')" class="btn btn-danger btn-sm rounded-circle btnUpdate"><i class="fa fa-times"></i></a>
+            <a href="#" onclick="checkOut('${row.id}')" class="btn btn-success btn-sm rounded-circle btnUpdate"><i class="fas fa-calendar-minus"></i></a>
             `
             ].join('')
         }
+        // <a href="#" onclick="cancelBook('${row.id}')" class="btn btn-danger btn-sm rounded-circle btnUpdate"><i class="fa fa-times"></i></a>
     </script>
 </body>
 

@@ -63,7 +63,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= $path ?>pages/check-in/index" class="nav-link">
+                    <a href="<?= $path ?>pages/check-out/index" class="nav-link">
                         <i class="nav-icon fas fa-calendar-check"></i>
                         <p>
                             ເຂົ້າພັກ

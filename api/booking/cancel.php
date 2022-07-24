@@ -5,7 +5,7 @@ if (isset($_POST['id'])){
     try {
         $id = $_POST['id'];
 
-        $sql = "UPDATE booking SET book_status = 2 WHERE id='$id'";
+        $sql = "UPDATE booking SET book_status = 4 WHERE id='$id'";
 
         if ($result = $conn->query($sql)) {
             echo json_encode(array("statusCode" => 200), JSON_UNESCAPED_UNICODE);

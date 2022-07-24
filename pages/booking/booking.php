@@ -126,12 +126,44 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">ຍົກເລີກ</button>
-                            <button type="submit" class="btn btn-success">ບັນທຶກ</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">ປິດ</button>
+                            <!-- <button type="submit" class="btn btn-success">ບັນທຶກ</button> -->
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Check-in Modal -->
+            <!-- <form novalidate class="needs-validation">
+                <div class="modal fade" id="CheckModal" tabindex="-1" role="dialog" aria-labelledby="CheckModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="CheckModalLabel">ແຈ້ງເຂົ້າພັກ</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="max-height: 75vh;overflow-y: auto;">
+
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="pay">
+                                    <label class="form-check-label" for="pay">ຈ່າຍເງິນເລີຍ</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">ຈຳນວນວັນ</label>
+                                    <input type="text" class="form-control kip-format" id="checkTotal">
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">ຍົກເລີກ</button>
+                                <button type="submit" class="btn btn-success">ບັນທຶກ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form> -->
 
             <!-- /.content -->
         </div>
@@ -407,11 +439,67 @@ if (!$_SESSION['user'] || $_SESSION == null) {
             })
         }
 
+        var bookId = '';
+
+        function checkIn(id) {
+
+            Swal.fire({
+                title: 'ຄຳຖາມ',
+                text: "ຢືນຢັນການແຈ້ງເຂົ້າ",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ຕົກລົງ',
+                cancelButtonText: 'ຍົກເລີກ',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '<?= $path ?>api/booking/check-in',
+                        type: 'post',
+                        data: {
+                            'id': id,
+                        },
+                        cache: false,
+                        success: function(data) {
+                            let result = JSON.parse(data);
+
+                            if (result.statusCode === 200) {
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: result.message,
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                    toast: true,
+                                    timerProgressBar: true,
+                                });
+                                $('.data-table').bootstrapTable('refresh');
+                            } else {
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'error',
+                                    title: result[0].message,
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                    toast: true,
+                                    timerProgressBar: true,
+                                });
+                                $('.data-table').bootstrapTable('refresh');
+                            }
+                        }
+                    })
+                }
+            })
+
+        }
+
         function operateFormatter(value, row, index) {
             return [
                 `
-            <a href="#" onclick="viewBook('${row.id}')" class="btn btn-success btn-sm rounded-circle btnUpdate"><i class="fas fa-eye"></i></a>
-            <a href="#" onclick="cancelBook('${row.id}')" class="btn btn-danger btn-sm rounded-circle btnUpdate"><i class="fa fa-times"></i></a>
+            <a href="#" onclick="viewBook('${row.id}')" class="btn btn-info btn-sm rounded-circle btnUpdate" data-toggle="tooltip" data-placement="bottom" title="ສະແດງລາຍລະອຽດ"><i class="fas fa-eye"></i></a>
+            <a href="#" onclick="checkIn('${row.id}')" class="btn btn-success btn-sm rounded-circle btnUpdate" data-toggle="tooltip" data-placement="bottom" title="ແຈ້ງເຂົ້າພັກ"><i class="fas fa-calendar-check"></i></a>
+            <a href="#" onclick="cancelBook('${row.id}')" class="btn btn-danger btn-sm rounded-circle btnUpdate" data-toggle="tooltip" data-placement="bottom" title="ຍົກເລີກ"><i class="fa fa-times"></i></a>
             `
             ].join('')
         }
