@@ -42,6 +42,8 @@
 <script src="<?= $path ?>assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 
 <script src="<?= $path ?>assets/dist/js/script.js"></script>
+<!-- Bootstrap Datepicker -->
+<script src="<?= $path ?>assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 
 
 <script>

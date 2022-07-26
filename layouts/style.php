@@ -26,3 +26,5 @@
 <link rel="stylesheet" href="<?= $path ?>assets/plugins/summernote/summernote-bs4.min.css">
 <!-- Sweetalert 2 -->
 <link rel="stylesheet" href="<?= $path ?>assets/plugins/sweetalert2/sweetalert2.min.css">
+<!-- Bootstrap Datepicker -->
+<link rel="stylesheet" href="<?= $path ?>assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css">
