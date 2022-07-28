@@ -3,7 +3,7 @@ session_start();
 $path = '../../';
 $title = "ຈັດການຂໍ້ມູນລູກຄ້າ";
 $IsActive = 2;
-$active = 'active';
+
 
 if (!$_SESSION['user'] || $_SESSION == null) {
     header('location: pages/login');

@@ -5,7 +5,7 @@ $path = '';
 $title = "ໜ້າຫຼັກ";
 
 $IsActive = 0;
-$active = 'active';
+
 
 if (!$_SESSION['user'] || $_SESSION == null) {
     header('location:' . $path . 'pages/login');
@@ -232,7 +232,6 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
             $('#yearChart').on('change', function() {
                 let showYear = $('#yearChart').val();
-                console.log(showYear);
                 showChart(showYear);
             })
             showChart();
@@ -275,6 +274,8 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                 datasetFill: false
                             }
                         });
+
+                        myChart.update()
 
                     }
                 })

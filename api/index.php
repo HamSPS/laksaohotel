@@ -2,7 +2,7 @@
 include 'config.php';
 
 if (isset($_GET['booking'])) {
-    $sql = "SELECT COUNT(*) AS count FROM booking WHERE MONTH(book_date)=MONTH(NOW()) AND YEAR(book_date) = YEAR(NOW())";
+    $sql = "SELECT COUNT(*) AS count FROM booking WHERE MONTH(book_date)=MONTH(NOW()) AND YEAR(book_date) = YEAR(NOW()) AND book_status=1";
 
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {

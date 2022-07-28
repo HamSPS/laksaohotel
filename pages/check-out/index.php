@@ -3,7 +3,7 @@ session_start();
 $path = '../../';
 $title = "ການເຂົ້າພັກ";
 $IsActive = 6;
-$active = 'active';
+
 
 if (!$_SESSION['user'] || $_SESSION == null) {
     header('location: pages/login');

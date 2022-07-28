@@ -13,7 +13,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-header">ໜ້າຫຼັກ</li>
                 <li class="nav-item">
-                    <a href="<?= $path ?>" class="nav-link <?= $IsActive == 0 ? $active : '' ?>">
+                    <a href="<?= $path ?>" class="nav-link <?= $IsActive == 0 ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
                             ໜ້າຫຼັກ
@@ -22,7 +22,7 @@
                 </li>
                 <li class="nav-header">ຈັດການຂໍ້ມູນ</li>
                 <li class="nav-item">
-                    <a href="<?= $path ?>pages/manage/employees" class="nav-link <?= $IsActive == 1 ? $active : '' ?>">
+                    <a href="<?= $path ?>pages/manage/employees" class="nav-link <?= $IsActive == 1 ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-user"></i>
                         <p>
                             ຂໍ້ມູນພະນັກງານ
@@ -30,7 +30,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= $path ?>pages/manage/customers" class="nav-link <?= $IsActive == 2 ? $active : '' ?>">
+                    <a href="<?= $path ?>pages/manage/customers" class="nav-link <?= $IsActive == 2 ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             ຂໍ້ມູນລູກຄ້າ
@@ -38,7 +38,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= $path ?>pages/manage/room-type" class="nav-link <?= $IsActive == 3 ? $active : '' ?>">
+                    <a href="<?= $path ?>pages/manage/room-type" class="nav-link <?= $IsActive == 3 ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-list"></i>
                         <p>
                             ຂໍ້ມູນປະເພດຫ້ອງພັກ
@@ -46,7 +46,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= $path ?>pages/manage/room" class="nav-link <?= $IsActive == 4 ? $active : '' ?>">
+                    <a href="<?= $path ?>pages/manage/room" class="nav-link <?= $IsActive == 4 ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-bed"></i>
                         <p>
                             ຂໍ້ມູນຫ້ອງພັກ
@@ -55,7 +55,7 @@
                 </li>
                 <li class="nav-header">ບໍລິການ</li>
                 <li class="nav-item">
-                    <a href="<?= $path ?>pages/booking/booking" class="nav-link <?= $IsActive == 5 ? $active : '' ?>">
+                    <a href="<?= $path ?>pages/booking/booking" class="nav-link <?= $IsActive == 5 ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-calendar-alt"></i>
                         <p>
                             ຈອງຫ້ອງພັກ
@@ -63,7 +63,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= $path ?>pages/check-out/index" class="nav-link <?= $IsActive == 6 ? $active : '' ?>">
+                    <a href="<?= $path ?>pages/check-out/index" class="nav-link <?= $IsActive == 6 ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-calendar-check"></i>
                         <p>
                             ເຂົ້າພັກ
@@ -73,7 +73,7 @@
                 <li class="nav-header">ລາຍງານ</li>
 
                 <li class="nav-item ">
-                    <a href="#" class="nav-link">
+                    <a href="#" class="nav-link <?= $IsActive >= 7 && $IsActive <= 14 ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
                             ລາຍງານ
@@ -82,49 +82,49 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= $path ?>pages/report/employees" class="nav-link">
+                            <a href="<?= $path ?>pages/report/employees" class="nav-link <?= $IsActive == 7 ? 'active' : '' ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>ລາຍງານຂໍ້ມູນພະນັກງານ</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../examples/profile.html" class="nav-link">
+                            <a href="<?= $path ?>pages/report/customers" class="nav-link <?= $IsActive == 8 ? 'active' : '' ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>ລາຍງານຂໍ້ມູນລູກຄ້າ</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../examples/e-commerce.html" class="nav-link">
+                            <a href="<?= $path ?>pages/report/room" class="nav-link <?= $IsActive == 9 ? 'active' : '' ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>ລາຍງານຂໍ້ມູນຫ້ອງພັກ</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../examples/projects.html" class="nav-link">
+                            <a href="<?= $path ?>pages/report/room-type" class="nav-link <?= $IsActive == 10 ? 'active' : '' ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>ລາຍງານຂໍ້ມູນປະເພດຫ້ອງພັກ</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../examples/project-add.html" class="nav-link">
+                            <a href="<?= $path ?>pages/report/service" class="nav-link <?= $IsActive == 11 ? 'active' : '' ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>ລາຍງານຂໍ້ມູນບໍລິການ</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../examples/contacts.html" class="nav-link">
+                            <a href="<?= $path ?>pages/report/booking" class="nav-link <?= $IsActive == 12 ? 'active' : '' ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>ລາຍງານຂໍ້ມູນການຈອງ</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../examples/project-edit.html" class="nav-link">
+                            <a href="<?= $path ?>pages/report/check-in" class="nav-link <?= $IsActive == 13 ? 'active' : '' ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>ລາຍງານຂໍ້ມູນການເຂົ້າພັກ</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../examples/project-detail.html" class="nav-link">
+                            <a href="<?= $path ?>pages/report/revenue" class="nav-link <?= $IsActive == 14 ? 'active' : '' ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>ລາຍງານສະຫຼຸບລາຍຮັບ</p>
                             </a>

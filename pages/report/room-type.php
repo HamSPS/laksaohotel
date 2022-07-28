@@ -1,8 +1,8 @@
 <?php
 session_start();
 $path = '../../';
-$title = "ລາຍງານຂໍ້ມູນພະນັກງານ";
-$IsActive = 7;
+$title = "ລາຍງານຂໍ້ມູນປະເພດຫ້ອງພັກ";
+$IsActive = 10;
 
 
 if (!$_SESSION['user'] || $_SESSION == null) {
@@ -46,18 +46,13 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <table id="table" class="table" data-classes="table table-hover table-striped" data-search="true" data-pagination="true" data-toggle="table" data-id-field="id" data-search-highlight="true" data-click-to-select="true" data-url="http://localhost/laksaohotel/api/employee/fetch" data-show-print="true" data-show-export="true">
+                                    <table id="table" class="table" data-classes="table table-hover table-striped" data-search="true" data-pagination="true" data-toggle="table" data-id-field="id" data-search-highlight="true" data-click-to-select="true" data-url="http://localhost/laksaohotel/api/room_type/fetch" data-show-print="true" data-show-export="true" data-export-types=" ['csv', 'txt', 'doc', 'excel', 'pdf']">
                                         <thead class="table-success">
-                                            <tr class="text-center">
+                                            <tr class="text-center table-success">
                                                 <!-- <th data-field="state" data-checkbox="true"></th> -->
-                                                <th data-field="key" data-sortable="true">#</th>
-                                                <th data-field="emp_code" data-sortable="true">ລະຫັດ</th>
-                                                <th data-field="emp_name" data-sortable="true">ຊື່ ແລະ ນາມສະກຸນ</th>
-                                                <th data-field="emp_gender" data-sortable="true">ເພດ</th>
-                                                <th data-field="emp_dob" data-sortable="true">ວັນເດືອນປີເກີດ</th>
-                                                <th data-field="emp_address" data-sortable="true">ທີ່ຢູ່</th>
-                                                <th data-field="emp_tel" data-sortable="true">ເບີໂທ</th>
-                                                <th data-field="username" data-sortable="true">ຊື່ຜູ້ໃຊ້</th>
+                                                <th data-field="key" data-sortable="true" class="text-center">#</th>
+                                                <th data-field="type_name" data-sortable="true">ຊື່ປະເພດ</th>
+                                                <th data-field="price" data-sortable="true">ລາຄາ</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -96,7 +91,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                 return 'ຄົ້ນຫາ...';
             },
             printPageBuilder: function(table) {
-                
+
                 return `
                         <html>
                         <head>
@@ -166,7 +161,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                         <title>Print Table</title>
                        <body>
     <h2 class="text-center">ໂຮງແຮມຫຼັກ 20</h2>
-    <h3 class="text-center">ລາຍງານຂໍ້ມູນພະນັກງານ</h3>
+    <h3 class="text-center">ລາຍງານຂໍ້ມູນປະເພດຫ້ອງພັກ</h3>
     <div class="desc">
         <p>ວັນທີພີມ: <?= date('d/m/Y') ?></p>
         <p style="text-align: right;">ພິມລາຍງານໂດຍ: <?= $_SESSION['fullname'] ?></p>
