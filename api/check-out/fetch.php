@@ -7,8 +7,7 @@ FROM tbservices s
 LEFT JOIN booking b ON s.book_id=b.id
 LEFT JOIN tbcustomers c ON b.customer_id=c.id
 LEFT JOIN rooms r ON b.room_id=r.id
-LEFT JOIN room_type t ON r.type_id=t.id
-WHERE stt=1";
+LEFT JOIN room_type t ON r.type_id=t.id ORDER BY s.id DESC";
     $result = $conn->query($stmt);
 
     if ($result->num_rows > 0) {
@@ -20,7 +19,9 @@ WHERE stt=1";
 
             if ($row['stt'] == 1) {
                 $status = '<span class="text-small badge badge-success">ກຳລັງເຂົ້າພັກ</span>';
-            } 
+            } else{
+                $status = '<span class="text-small badge badge-warning">ແຈ້ງອອກແລ້ວ</span>';
+            }
 
             $item[] = [
                 'key' => $key + 1,
@@ -30,6 +31,7 @@ WHERE stt=1";
                 'room_no' => $row['room_no'],
                 'type_name' => $row['type_name'],
                 'cus_name' => $row['cus_name'],
+                'stt' => $row['stt'],
                 'status' => $status
             ];
         }

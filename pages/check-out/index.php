@@ -2,6 +2,8 @@
 session_start();
 $path = '../../';
 $title = "ການເຂົ້າພັກ";
+$IsActive = 6;
+$active = 'active';
 
 if (!$_SESSION['user'] || $_SESSION == null) {
     header('location: pages/login');
@@ -113,6 +115,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                 </div>
             </form>
 
+            <div id="printerDiv" style="display:none"></div>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
@@ -386,10 +389,17 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
         }
 
+        function printBill(id) {
+            var div = document.getElementById("printerDiv");
+            div.innerHTML = '<iframe src="bill" onload="this.contentWindow.print();"></iframe>';
+        }
+
         function operateFormatter(value, row, index) {
+
             return [
                 `
             <a href="#" onclick="checkOut('${row.id}')" class="btn btn-success btn-sm rounded-circle btnUpdate"><i class="fas fa-calendar-minus"></i></a>
+            <a href="bill?print=${row.id}" target="_blank" class="btn btn-primary btn-sm rounded-circle btnUpdate"><i class="fas fa-print"></i></a>
             `
             ].join('')
         }

@@ -2,6 +2,8 @@
 session_start();
 $path = '../../';
 $title = "ຈັດການຂໍ້ມູນຫ້ອງພັກ";
+$IsActive = 4;
+$active = 'active';
 
 if (!$_SESSION['user'] || $_SESSION == null) {
     header('location: pages/login');

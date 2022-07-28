@@ -4,6 +4,9 @@ session_start();
 $path = '';
 $title = "ໜ້າຫຼັກ";
 
+$IsActive = 0;
+$active = 'active';
+
 if (!$_SESSION['user'] || $_SESSION == null) {
     header('location:' . $path . 'pages/login');
 }
