@@ -56,12 +56,13 @@
     function logout() {
         Swal.fire({
             title: 'ຕ້ອງການອອກຈາກລະບົບ',
-            text: "You won't be able to revert this!",
+            text: "",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'ອອກຈາກລະບົບ',
+            cancelButtonText: 'ຍົກເລີກ',
         }).then((result) => {
             if (result.isConfirmed) {
                 window.location.href = '<?= $path ?>api/logout'

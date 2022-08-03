@@ -3,4 +3,4 @@ session_start();
 
 session_destroy();
 
-header('location: ../pages/login');
+header('location: http://localhost/laksaohotel');
