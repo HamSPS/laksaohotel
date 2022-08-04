@@ -10,7 +10,7 @@ if ($result->num_rows > 0) {
     foreach ($result as $key => $row) {
         $status = '';
         $price = "LAK " . number_format($row['price'], 2);
-        if ($row['room_status'] = 1) {
+        if ($row['room_status'] == 1) {
             $status = '<span class="text-sm badge badge-success">ຫວ່າງ</span>';
         }else{
             $status = '<span class="text-sm badge badge-danger">ບໍ່ຫວ່າງ</span>';

@@ -5,11 +5,10 @@ include $path . 'api/config.php';
 if (isset($_GET['print'])) {
     $id = $_GET['print'];
     $sql = "SELECT s.id,sv_date,check_in_date,check_out_date,room_no,type_name,price,amount,pay,cus_code,cus_name,emp_code,emp_name,DATEDIFF(check_out_date,check_in_date) as total_date FROM tbservices s
-LEFT JOIN booking b ON s.book_id=b.id
 LEFT JOIN payments p ON p.service_id=s.id
-LEFT JOIN tbcustomers c ON b.customer_id=c.id
-LEFT JOIN tbemployees e ON b.employee_id=e.id
-LEFT JOIN rooms r ON b.room_id=r.id
+LEFT JOIN tbcustomers c ON s.customer_id=c.id
+LEFT JOIN tbemployees e ON s.employee_id=e.id
+LEFT JOIN rooms r ON s.room_id=r.id
 LEFT JOIN room_type t ON r.type_id=t.id
 WHERE stt=2 AND s.id='$id'";
 

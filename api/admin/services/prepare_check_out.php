@@ -6,9 +6,8 @@ try {
 
     $stmt = "SELECT s.id,check_in_date,stt,room_id,room_no,type_name,price,DATEDIFF(NOW(),check_in_date) AS total_date,customer_id,cus_code,cus_name
 FROM tbservices s
-LEFT JOIN booking b ON s.book_id=b.id
-LEFT JOIN tbcustomers c ON b.customer_id=c.id
-LEFT JOIN rooms r ON b.room_id=r.id
+LEFT JOIN tbcustomers c ON s.customer_id=c.id
+LEFT JOIN rooms r ON s.room_id=r.id
 LEFT JOIN room_type t ON r.type_id=t.id WHERE s.id='$id'";
     $result = $conn->query($stmt);
 

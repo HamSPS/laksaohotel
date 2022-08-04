@@ -2,12 +2,12 @@
 include '../../config.php';
 
 try {
-    $stmt = "SELECT s.id,check_in_date,stt,room_id,room_no,type_name,customer_id,cus_code,cus_name
-FROM tbservices s
-LEFT JOIN booking b ON s.book_id=b.id
-LEFT JOIN tbcustomers c ON b.customer_id=c.id
-LEFT JOIN rooms r ON b.room_id=r.id
-LEFT JOIN room_type t ON r.type_id=t.id ORDER BY s.id DESC";
+    $stmt = "SELECT s.id,sv_date,check_in_date,check_out_date,cus_name,emp_name,room_id,room_no,type_name,price,stt FROM tbservices s
+    LEFT JOIN tbcustomers c ON s.customer_id=c.id
+    LEFT JOIN tbemployees e ON s.employee_id=e.id
+    LEFT JOIN rooms r ON s.room_id=r.id
+    LEFT JOIN room_type t ON r.type_id=t.id
+    ORDER BY stt ASC, id DESC";
     $result = $conn->query($stmt);
 
     if ($result->num_rows > 0) {
@@ -19,20 +19,26 @@ LEFT JOIN room_type t ON r.type_id=t.id ORDER BY s.id DESC";
 
             if ($row['stt'] == 1) {
                 $status = '<span class="text-small badge badge-success">ກຳລັງເຂົ້າພັກ</span>';
+                $button = '<a href="#" onclick="checkOut('.$row['id'].')" class="btn btn-success btn-sm rounded-circle btnUpdate"><i class="fas fa-calendar-minus"></i></a>';
             } else{
                 $status = '<span class="text-small badge badge-warning">ແຈ້ງອອກແລ້ວ</span>';
+                $button = '<a href="bill?print='.$row['id'].'" target="_blank" class="btn btn-primary btn-sm rounded-circle btnUpdate"><i class="fas fa-print"></i></a>';
             }
+
+
 
             $item[] = [
                 'key' => $key + 1,
                 'id' => $row['id'],
                 'check_in_date' => $row['check_in_date'],
+                'check_out_date' => $row['check_out_date'],
                 'room_id' => $row['room_id'],
                 'room_no' => $row['room_no'],
                 'type_name' => $row['type_name'],
                 'cus_name' => $row['cus_name'],
                 'stt' => $row['stt'],
-                'status' => $status
+                'status' => $status,
+                'operate' => $button,
             ];
         }
 

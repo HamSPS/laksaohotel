@@ -1,8 +1,8 @@
 <?php
 session_start();
 $path = '../../../';
-$title = "ການຈອງຫ້ອງພັກ";
-$IsActive = 5;
+$title = "ການເຂົ້າພັກ";
+$IsActive = 6;
 
 
 if (!$_SESSION['user'] || $_SESSION == null) {
@@ -42,7 +42,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <h5>ເພີ່ມຂໍ້ມູນການຈອງ</h5>
+                                        <h5>ເພີ່ມຂໍ້ມູນການເຂົ້າພັກ</h5>
                                         <form novalidate class="needs-validation" id="formInsert">
                                             <div class="form-group">
                                                 <label for="customer">ລູກຄ້າ</label>
@@ -50,7 +50,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                                     <select name="" id="customer" class="selectpicker form-control" title="ເລືອກຂໍ້ມູນລູກຄ້າ" data-live-search="true" required>
                                                     </select>
                                                     <div class="input-group-append">
-                                                        <a href="<?= $path ?>pages/manage/customers" class="btn btn-success"><i class="fas fa-plus"></i> ເພີ່ມ</a>
+                                                        <a href="<?= $path ?>pages/admin/manage/customers" class="btn btn-success"><i class="fas fa-plus"></i> ເພີ່ມ</a>
                                                     </div>
                                                 </div>
                                                 <div class="invalid-feedback">
@@ -69,20 +69,6 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                                 </select>
                                                 <div class="invalid-feedback">
                                                     ກະລຸນາເລືອກຫ້ອງພັກ
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="startDate">ວັນທີເລີ່ມ</label>
-                                                <input type="date" name="startDate" id="startDate" class="form-control" disabled required>
-                                                <div class="invalid-feedback">
-                                                    ກະລຸນາເລືອກວັນທີ່ເລີ່ມເຂົ້າພັກ
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="endDate">ວັນທີສິ້ນສຸດ</label>
-                                                <input type="date" name="endDate" id="endDate" class="form-control" disabled required>
-                                                <div class="invalid-feedback">
-                                                    ກະລຸນາເລືອກວັນທີສິ້ນສຸດ
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -128,7 +114,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
         function loadBooked(roomId) {
 
             $.ajax({
-                url: 'http://localhost/laksaohotel/api/admin/booking/load?booked',
+                url: 'http://localhost/laksaohotel/api/admin/services/load?booked',
                 type: 'post',
                 data: {
                     roomId: roomId,
@@ -167,7 +153,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
                 let url = '';
                 if (roomId != null || roomId != '') {
-                    url = 'http://localhost/laksaohotel/api/admin/booking/load?booked&roomId=' + roomId;
+                    url = 'http://localhost/laksaohotel/api/admin/services/load?booked&roomId=' + roomId;
                     var calendarEl = document.getElementById('calendar');
                     var calendar = new FullCalendar.Calendar(calendarEl, {
                         initialView: 'dayGridMonth',
@@ -185,7 +171,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
             function loadCustomer() {
                 let customer = $('#customer');
                 $.ajax({
-                    url: 'http://localhost/laksaohotel/api/admin/booking/load?customer',
+                    url: 'http://localhost/laksaohotel/api/admin/services/load?customer',
                     dataType: 'json',
                     success: function(data) {
                         let html = '';
@@ -225,7 +211,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
             function loadRoom(load, id = '') {
 
                 $.ajax({
-                    url: 'http://localhost/laksaohotel/api/admin/booking/load?' + load,
+                    url: 'http://localhost/laksaohotel/api/admin/services/load?' + load,
                     type: 'post',
                     data: {
                         id: id,
@@ -255,19 +241,15 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
                 let $customer = $('#customer').val();
                 let $room = $('#room').val();
-                let $startDate = $('#startDate').val();
-                let $endDate = $('#endDate').val();
 
-                if ($customer != '' && $room != '' && $startDate != '' && $endDate != '') {
+                if ($customer != '' && $room != '') {
 
                     $.ajax({
-                        url: 'http://localhost/laksaohotel/api/admin/booking/insert',
+                        url: 'http://localhost/laksaohotel/api/admin/services/check_in',
                         type: 'post',
                         data: {
                             'customer': $customer,
                             'room': $room,
-                            'startDate': $startDate,
-                            'endDate': $endDate,
                             'user': '<?= $_SESSION['user'] ?>'
                         },
                         cache: false,
@@ -275,17 +257,19 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
                             let result = JSON.parse(response);
 
-                            if (result.statusCode === 200) {
+                            console.log(result);
+                            if (result[0].statusCode === 200) {
                                 Swal.fire({
                                     position: 'center',
                                     icon: 'success',
-                                    title: result.message,
+                                    title: result[0].message,
                                     showConfirmButton: false,
                                     timer: 3000,
                                     toast: false,
                                     timerProgressBar: true,
-                                }).then(() => {
-                                    window.location.href = "booking"
+                                })
+                                .then(() => {
+                                    window.location.href = "index"
                                 })
                             } else {
                                 Swal.fire({
@@ -296,8 +280,9 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                     timer: 3000,
                                     toast: true,
                                     timerProgressBar: true,
-                                }).then(() => {
-                                    window.location.href = "booking"
+                                })
+                                .then(() => {
+                                    window.location.href = "index"
                                 });
                             }
                         }

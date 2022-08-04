@@ -47,22 +47,23 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                             <div class="card">
                                 <div class="card-body">
                                     <div class="toolbar">
-                                        <!-- <a href="add-booking" class="btn btn-success"><i class="fas fa-plus"></i>
-                                            ເພີ່ມຂໍ້ມູນ</a> -->
+                                        <a href="add-service" class="btn btn-success"><i class="fas fa-plus"></i>
+                                            ເພີ່ມຂໍ້ມູນ</a>
 
                                         <!-- <button type="button" id="deleteSelect" class="btn btn-danger" disabled><i class="fas fa-trash"></i> ລົບຂໍ້ມູນ</button> -->
                                     </div>
-                                    <table id="table" class="table data-table" data-classes="table table-hover table-striped" data-search="true" data-pagination="true" data-toggle="table" data-id-field="id" data-toolbar=".toolbar" data-search-highlight="true" data-click-to-select="true" data-url="http://localhost/laksaohotel/api/admin/check-out/fetch">
+                                    <table id="table" class="table data-table" data-classes="table table-hover table-striped" data-search="true" data-pagination="true" data-toggle="table" data-id-field="id" data-toolbar=".toolbar" data-search-highlight="true" data-click-to-select="true" data-url="http://localhost/laksaohotel/api/admin/services/fetch">
                                         <thead>
                                             <tr class="text-center table-success">
                                                 <!-- <th data-field="state" data-checkbox="true"></th> -->
                                                 <th data-field="key" data-sortable="true">#</th>
                                                 <th data-field="check_in_date" data-sortable="true">ວັນທີ່ເຂົ້າພັກ</th>
+                                                <th data-field="check_out_date" data-sortable="true">ວັນແຈ້ງອອກ</th>
                                                 <th data-field="room_no" data-sortable="true">ຫ້ອງພັກ</th>
                                                 <th data-field="type_name" data-sortable="true">ປະເພດຫ້ອງ</th>
                                                 <th data-field="cus_name" data-sortable="true">ລູກຄ້າ</th>
                                                 <th data-field="status" data-sortable="true">ສະຖານະ</th>
-                                                <th data-field="operate" data-formatter="operateFormatter" class="text-center mx-0"></th>
+                                                <th data-field="operate" class="text-center mx-0"></th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -80,7 +81,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="checkOutModalLabel">ຂໍ້ມູນການຈອງ</h5>
+                                <h5 class="modal-title" id="checkOutModalLabel">ຟອມການແຈ້ງອອກ</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -135,142 +136,6 @@ if (!$_SESSION['user'] || $_SESSION == null) {
     <script>
         $(document).ready(function() {
 
-            $('#add_form').on('submit', function(e) {
-                e.preventDefault();
-
-                let $code = $('#code').val();
-                let $name = $('#name').val();
-                let $gender = $('#gender').val();
-                let $tel = $('#tel').val();
-                let $address = $('#address').val();
-                let $card_no = $('#card_no').val();
-
-                if ($code != null && $name != null && $gender != null && $card_no != null) {
-                    $.ajax({
-                        url: 'http://localhost/laksaohotel/api/admin/customer/insert',
-                        type: 'post',
-                        data: {
-                            'code': $code,
-                            'name': $name,
-                            'gender': $gender,
-                            'tel': $tel,
-                            'address': $address,
-                            'card_no': $card_no,
-                        },
-                        cache: false,
-                        success: function(dataResult) {
-                            let result = JSON.parse(dataResult);
-                            $('#AddModal').modal('hide');
-
-                            $('#code').val("");
-                            $('#name').val("");
-                            $('#gender').val("");
-                            $('#tel').val("");
-                            $('#address').val("");
-                            $('#card_no').val("");
-
-                            $('#add_form').removeClass('was-validate');
-
-                            if (result.statusCode === 200) {
-                                $('.data-table').bootstrapTable('refresh');
-                                Swal.fire({
-                                    position: 'top-end',
-                                    icon: 'success',
-                                    title: result.message,
-                                    showConfirmButton: false,
-                                    timer: 3000,
-                                    toast: true,
-                                    timerProgressBar: true,
-                                })
-                            } else {
-                                $('.data-table').bootstrapTable('refresh');
-                                Swal.fire({
-                                    position: 'top-end',
-                                    icon: 'error',
-                                    title: result[0].message,
-                                    showConfirmButton: false,
-                                    timer: 3000,
-                                    toast: true,
-                                    timerProgressBar: true,
-                                });
-                            }
-                        }
-                    })
-                }
-
-            });
-
-            $('#edit_form').on('submit', function(e) {
-                e.preventDefault();
-
-                if (updateId != null) {
-
-                    let $code = $('#code_update').val();
-                    let $name = $('#name_update').val();
-                    let $gender = $('#gender_update').val();
-                    let $tel = $('#tel_update').val();
-                    let $address = $('#address_update').val();
-                    let $card_no = $('#card_no_update').val();
-
-                    if ($code != '' && $name != '' && $gender != '' && $card_no != '') {
-                        $.ajax({
-                            url: 'http://localhost/laksaohotel/api/admin/customer/update',
-                            type: 'post',
-                            data: {
-                                'action': 'update',
-                                'id': updateId,
-                                'code': $code,
-                                'name': $name,
-                                'gender': $gender,
-                                'tel': $tel,
-                                'address': $address,
-                                'card_no': $card_no,
-                            },
-                            cache: false,
-                            success: function(dataResult) {
-                                let result = JSON.parse(dataResult);
-
-                                $('#EditModal').modal('hide');
-
-                                $('#code_update').val("");
-                                $('#name_update').val("");
-                                $('#gender_update').val("");
-                                $('#tel_update').val("");
-                                $('#address_update').val("");
-                                $('#card_no_update').val("");
-
-                                $('#edit_form').removeClass('was-validate');
-
-
-                                if (result.statusCode === 200) {
-                                    $('.data-table').bootstrapTable('refresh');
-                                    Swal.fire({
-                                        position: 'top-end',
-                                        icon: 'success',
-                                        title: result.message,
-                                        showConfirmButton: false,
-                                        timer: 3000,
-                                        toast: true,
-                                        timerProgressBar: true,
-                                    })
-                                } else {
-                                    $('.data-table').bootstrapTable('refresh');
-                                    Swal.fire({
-                                        position: 'top-end',
-                                        icon: 'error',
-                                        title: result[0].message,
-                                        showConfirmButton: false,
-                                        timer: 3000,
-                                        toast: true,
-                                        timerProgressBar: true,
-                                    })
-                                }
-                            }
-                        })
-                    }
-                }
-            });
-
         });
 
         $('#checkOutForm').on('submit', function(e) {
@@ -293,7 +158,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                 if (amount <= pay) {
 
                     $.ajax({
-                        url: 'http://localhost/laksaohotel/api/admin/check-out/check_out',
+                        url: 'http://localhost/laksaohotel/api/admin/services/check_out',
                         type: 'post',
                         data: {
                             id: checkOutId,
@@ -358,7 +223,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
             this.checkOutId = id;
 
             $.ajax({
-                url: 'http://localhost/laksaohotel/api/admin/check-out/prepare_check_out',
+                url: 'http://localhost/laksaohotel/api/admin/services/prepare_check_out',
                 type: 'post',
                 data: {
                     id: id,

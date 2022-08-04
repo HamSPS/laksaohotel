@@ -67,10 +67,10 @@ echo $_SESSION['role'];
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= $path ?>pages/admin/check-out/index" class="nav-link <?= $IsActive == 6 ? 'active' : '' ?>">
+                    <a href="<?= $path ?>pages/admin/services/index" class="nav-link <?= $IsActive == 6 ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-calendar-check"></i>
                         <p>
-                            ເຂົ້າພັກ
+                            ການບໍລິການ
                         </p>
                     </a>
                 </li>
