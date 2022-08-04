@@ -8,7 +8,7 @@ $IsActive = 0;
 
 
 if (!$_SESSION['user'] || $_SESSION == null) {
-    header('location:' . $path.'pages/admin/login');
+    header('location:' . $path . 'pages/admin/login');
 }
 ?>
 <!DOCTYPE html>
@@ -20,7 +20,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
     <title>ສະບາຍດີຫຼັກ 20</title>
 
     <?php
-    include $path.'layouts/style.php';
+    include $path . 'layouts/style.php';
     ?>
 
     <style>
@@ -39,11 +39,11 @@ if (!$_SESSION['user'] || $_SESSION == null) {
         </div>
 
         <!-- Navbar -->
-        <?php include $path.'layouts/navbar.php' ?>
+        <?php include $path . 'layouts/navbar.php' ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php include $path.'layouts/sidebar.php' ?>
+        <?php include $path . 'layouts/sidebar.php' ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
 
@@ -81,11 +81,12 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-12">
                             <div class="card card-success">
                                 <div class="card-header">
-                                    <h3 class="card-title">ກາຟສະແດງຈຳນວນແຂງເຂົ້າພັກໃນແຕ່ລະເດືອນ</h3>
-                                    <div class="card-tools">
+                                    <h3 class="card-title">ກາຟສະແດງສະຖິຕິການເຂົ້າພັກ</h3>
+                                    <div class="card-tools d-flex">
+                                        <input type="text" name="yearChart" id="yearChart" class="form-control form-control-sm ml-4" value="<?= date('Y') ?>" style="max-width: 100px">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
                                         </button>
@@ -96,8 +97,29 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                 </div>
                                 <div class="card-body">
                                     <div class="chart">
-                                        <input type="number" name="" id="yearChart" class="form-control w-25" placeholder="ເລືອກປີສະແດງ" />
-                                        <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                        <canvas id="stackedBarChart"></canvas>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card card-success">
+                                <div class="card-header">
+                                    <h3 class="card-title">ກາຟສະແດງລາຍຮັບ</h3>
+                                    <div class="card-tools d-flex">
+                                        <input type="text" name="yearRevenue" id="yearRevenue" class="form-control form-control-sm ml-4" value="<?= date('Y') ?>" style="max-width: 100px">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <canvas id="LineChart"></canvas>
                                     </div>
                                 </div>
 
@@ -109,7 +131,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-        <?php include $path.'layouts/footer.php' ?>
+        <?php include $path . 'layouts/footer.php' ?>
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -119,7 +141,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
     </div>
     <!-- ./wrapper -->
 
-    <?php include $path.'layouts/script.php' ?>
+    <?php include $path . 'layouts/script.php' ?>
 
 
     <script>
@@ -147,7 +169,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                             <div class="icon">
                                                 <i class="fas fa-shopping-cart"></i>
                                             </div>
-                                            <a href="pages/booking/booking" class="small-box-footer">
+                                            <a href="booking/booking" class="small-box-footer">
                                                 ເພີ່ມເຕີມ <i class="fas fa-arrow-circle-right"></i>
                                             </a>
                                         </div>`;
@@ -172,7 +194,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                             <div class="icon">
                                                 <i class="fas fa-shopping-cart"></i>
                                             </div>
-                                            <a href="pages/check-out/index" class="small-box-footer">
+                                            <a href="services/index" class="small-box-footer">
                                                 ເພີ່ມເຕີມ <i class="fas fa-arrow-circle-right"></i>
                                             </a>
                                         </div>`;
@@ -197,7 +219,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                 <div class="icon">
                                     <i class="fas fa-user-plus"></i>
                                 </div>
-                                <a href="pages/manage/employees" class="small-box-footer">
+                                <a href="manage/employees" class="small-box-footer">
                                     ເພີ່ມເຕີມ <i class="fas fa-arrow-circle-right"></i>
                                 </a>`;
                     }
@@ -221,7 +243,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                 <div class="icon">
                                     <i class="fas fa-chart-pie"></i>
                                 </div>
-                                <a href="pages/manage/customers" class="small-box-footer">
+                                <a href="manage/customers" class="small-box-footer">
                                     ເພີ່ມເຕີມ <i class="fas fa-arrow-circle-right"></i>
                                 </a>`;
                     }
@@ -234,11 +256,15 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                 let showYear = $('#yearChart').val();
                 showChart(showYear);
             })
+            $('#yearChart').on('change', function() {
+                let showYear = $('#yearChart').val();
+                showChart(showYear);
+            })
             showChart();
 
             function showChart(year = '') {
                 $.ajax({
-                    url: 'http://localhost/laksaohotel/api/admin/index?chart',
+                    url: 'http://localhost/laksaohotel/api/admin/report/service?chart',
                     type: 'post',
                     data: {
                         year: year,
@@ -249,29 +275,123 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                         let result = JSON.parse(data);
 
                         let labelChart = [];
-                        let dataChart = [];
+                        let dataAmount = [];
+                        let dataCheckIn = [];
+                        let dataCheckOut = [];
 
                         for (let i = 0; i < result.length; i++) {
                             labelChart[i] = result[i].checkInMonth;
-                            dataChart[i] = result[i].amount;
+                            dataAmount[i] = result[i].amount;
+                            dataCheckIn[i] = result[i].checkIn;
+                            dataCheckOut[i] = result[i].checkOut;
                         }
 
-                        console.log(result);
-                        const ctx = document.getElementById('barChart').getContext('2d');
+                        console.log(result[0].cancel);
+                        const ctx = document.getElementById('stackedBarChart').getContext('2d');
                         const myChart = new Chart(ctx, {
                             type: 'bar',
                             data: {
                                 labels: labelChart,
                                 datasets: [{
-                                    label: '# ຈຳນວນເຂົ້າພັກ',
-                                    data: dataChart,
-                                    backgroundColor: '#4f98c2'
-                                }]
+                                        label: '# ຈຳນວນເຂົ້າພັກ',
+                                        data: dataCheckIn,
+                                        backgroundColor: '#4bc0c0'
+                                    },
+                                    {
+                                        label: '# ຈຳນວນແຈ້ງອອກ',
+                                        data: dataCheckOut,
+                                        backgroundColor: '#fcebbf'
+                                    },
+                                    {
+                                        label: '# ຈຳນວນທັງໝົດ',
+                                        data: dataAmount,
+                                    },
+                                ]
                             },
                             options: {
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: 'Chart.js Bar Chart - Stacked'
+                                    },
+                                },
                                 responsive: true,
-                                maintainAspectRatio: false,
-                                datasetFill: false
+                                scales: {
+                                    xAxes: [{
+                                        stacked: true
+                                    }],
+                                    yAxes: [{
+                                        stacked: true
+                                    }]
+                                }
+                            }
+                        });
+
+                        myChart.update()
+
+                    }
+                })
+            }
+
+            $('#yearRevenue').datepicker({
+                format: "yyyy",
+                viewMode: "years",
+                minViewMode: "years"
+            });
+
+            $('#yearRevenue').on('change', function() {
+                let showYear = $('#yearRevenue').val();
+                revenueChart(showYear);
+            })
+            revenueChart();
+
+            function revenueChart(year = '') {
+                $.ajax({
+                    url: 'http://localhost/laksaohotel/api/admin/report/revenue?chart',
+                    type: 'post',
+                    data: {
+                        year: year,
+                    },
+                    cache: false,
+                    success: function(data) {
+
+                        let result = JSON.parse(data);
+
+                        let labelChart = [];
+                        let dataAmount = [];
+
+                        for (let i = 0; i < result.length; i++) {
+                            labelChart[i] = result[i].date;
+                            dataAmount[i] = result[i].amount;
+                        }
+
+                        const ctx = document.getElementById('LineChart').getContext('2d');
+                        const myChart = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: labelChart,
+                                datasets: [{
+                                    label: '# ຈຳນວນລາຍຮັບຕໍ່ເດືອນ',
+                                    data: dataAmount,
+                                    backgroundColor: '#4bc0c0'
+                                }, ]
+                            },
+                            options: {
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: 'Chart.js Bar Chart - Stacked'
+                                    },
+                                },
+                                responsive: true,
+                                scales: {
+                                    xAxes: [{
+                                        stacked: true
+                                    }],
+                                    yAxes: [{
+                                        stacked: true
+                                    }]
+                                }
                             }
                         });
 

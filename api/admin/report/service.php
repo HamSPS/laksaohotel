@@ -5,9 +5,8 @@ if(isset($_GET['show'])){
     try {
         $sql = "SELECT s.id,sv_date,check_in_date,check_out_date,stt,room_id,room_no,type_name,customer_id,cus_code,cus_name
         FROM tbservices s
-        LEFT JOIN booking b ON s.book_id=b.id
-        LEFT JOIN tbcustomers c ON b.customer_id=c.id
-        LEFT JOIN rooms r ON b.room_id=r.id
+        LEFT JOIN tbcustomers c ON s.customer_id=c.id
+        LEFT JOIN rooms r ON s.room_id=r.id
         LEFT JOIN room_type t ON r.type_id=t.id ORDER BY s.id DESC";
 
         $result = $conn->query($sql);

@@ -72,7 +72,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                         <div class="col-12">
                             <div class="card card-success">
                                 <div class="card-header">
-                                    <h3 class="card-title">ກາຟສະແດງສະຖິຕິການຈອງ</h3>
+                                    <h3 class="card-title">ກາຟສະແດງລາຍຮັບ</h3>
                                     <div class="card-tools d-flex">
                                         <input type="text" name="yearChart" id="yearChart" class="form-control form-control-sm ml-4" value="<?= date('Y') ?>" style="max-width: 100px">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -257,7 +257,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
             function showChart(year = '') {
                 $.ajax({
-                    url: 'http://localhost/laksaohotel/api/admin/report/service?chart',
+                    url: 'http://localhost/laksaohotel/api/admin/report/revenue?chart',
                     type: 'post',
                     data: {
                         year: year,
@@ -269,34 +269,21 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
                         let labelChart = [];
                         let dataAmount = [];
-                        let dataCheckIn = [];
-                        let dataCheckOut = [];
 
                         for (let i = 0; i < result.length; i++) {
-                            labelChart[i] = result[i].checkInMonth;
+                            labelChart[i] = result[i].date;
                             dataAmount[i] = result[i].amount;
-                            dataCheckIn[i] = result[i].checkIn;
-                            dataCheckOut[i] = result[i].checkOut;
                         }
 
                         const ctx = document.getElementById('stackedBarChart').getContext('2d');
                         const myChart = new Chart(ctx, {
-                            type: 'bar',
+                            type: 'line',
                             data: {
                                 labels: labelChart,
                                 datasets: [{
-                                        label: '# ຈຳນວນເຂົ້າພັກ',
-                                        data: dataCheckIn,
-                                        backgroundColor: '#4bc0c0'
-                                    },
-                                    {
-                                        label: '# ຈຳນວນແຈ້ງອອກ',
-                                        data: dataCheckOut,
-                                        backgroundColor: '#fcebbf'
-                                    },
-                                    {
-                                        label: '# ຈຳນວນທັງໝົດ',
+                                        label: '# ຈຳນວນລາຍຮັບຕໍ່ເດືອນ',
                                         data: dataAmount,
+                                        backgroundColor: '#4bc0c0'
                                     },
                                 ]
                             },

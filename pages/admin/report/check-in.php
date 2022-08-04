@@ -66,9 +66,9 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                         <div class="col-12">
                             <div class="card card-success">
                                 <div class="card-header">
-                                    <h3 class="card-title">ກາຟສະແດງສະຖິຕິການຈອງ</h3>
+                                    <h3 class="card-title">ກາຟສະແດງສະຖິຕິການເຂົ້າພັກ</h3>
                                     <div class="card-tools d-flex">
-                                        <input type="text" name="yearChart" id="yearChart" class="form-control form-control-sm ml-4" value="<?= date('Y') ?>"  style="max-width: 100px">
+                                        <input type="text" name="yearChart" id="yearChart" class="form-control form-control-sm ml-4" value="<?= date('Y') ?>" style="max-width: 100px">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
                                         </button>
@@ -112,7 +112,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
     <script>
         var $table = $('#table')
 
-        
+
 
         $table.bootstrapTable({
             formatSearch: function() {
@@ -208,7 +208,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
         //- STACKED BAR CHART -
         //---------------------
 
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('#yearChart').datepicker({
                 format: "yyyy",
                 viewMode: "years",
@@ -219,79 +219,78 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                 let showYear = $('#yearChart').val();
                 showChart(showYear);
             })
-        showChart();
+            showChart();
 
-        function showChart(year = '') {
-            $.ajax({
-                url: 'http://localhost/laksaohotel/api/admin/report/service?chart',
-                type: 'post',
-                data: {
-                    year: year,
-                },
-                cache: false,
-                success: function(data) {
+            function showChart(year = '') {
+                $.ajax({
+                    url: 'http://localhost/laksaohotel/api/admin/report/service?chart',
+                    type: 'post',
+                    data: {
+                        year: year,
+                    },
+                    cache: false,
+                    success: function(data) {
 
-                    let result = JSON.parse(data);
+                        let result = JSON.parse(data);
 
-                    let labelChart = [];
-                    let dataAmount = [];
-                    let dataCheckIn = [];
-                    let dataCheckOut = [];
+                        let labelChart = [];
+                        let dataAmount = [];
+                        let dataCheckIn = [];
+                        let dataCheckOut = [];
 
-                    for (let i = 0; i < result.length; i++) {
-                        labelChart[i] = result[i].checkInMonth;
-                        dataAmount[i] = result[i].amount;
-                        dataCheckIn[i] = result[i].checkIn;
-                        dataCheckOut[i] = result[i].checkOut;
-                    }
-
-                    console.log(result[0].cancel);
-                    const ctx = document.getElementById('stackedBarChart').getContext('2d');
-                    const myChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: labelChart,
-                            datasets: [
-                                {
-                                    label: '# ຈຳນວນເຂົ້າພັກ',
-                                    data: dataCheckIn,
-                                    backgroundColor: '#4bc0c0'
-                                },
-                                {
-                                    label: '# ຈຳນວນແຈ້ງອອກ',
-                                    data: dataCheckOut,
-                                    backgroundColor: '#fcebbf'
-                                },
-                                {
-                                    label: '# ຈຳນວນທັງໝົດ',
-                                    data: dataAmount,
-                                },
-                            ]
-                        },
-                        options: {
-                            plugins: {
-                                title: {
-                                    display: true,
-                                    text: 'Chart.js Bar Chart - Stacked'
-                                },
-                            },
-                            responsive: true,
-                            scales: {
-                                xAxes: [{
-                                    stacked: true
-                                }],
-                                yAxes: [{
-                                    stacked: true
-                                }]
-                            }
+                        for (let i = 0; i < result.length; i++) {
+                            labelChart[i] = result[i].checkInMonth;
+                            dataAmount[i] = result[i].amount;
+                            dataCheckIn[i] = result[i].checkIn;
+                            dataCheckOut[i] = result[i].checkOut;
                         }
-                    });
 
-                    myChart.update()
+                        console.log(result[0].cancel);
+                        const ctx = document.getElementById('stackedBarChart').getContext('2d');
+                        const myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: labelChart,
+                                datasets: [{
+                                        label: '# ຈຳນວນເຂົ້າພັກ',
+                                        data: dataCheckIn,
+                                        backgroundColor: '#4bc0c0'
+                                    },
+                                    {
+                                        label: '# ຈຳນວນແຈ້ງອອກ',
+                                        data: dataCheckOut,
+                                        backgroundColor: '#fcebbf'
+                                    },
+                                    {
+                                        label: '# ຈຳນວນທັງໝົດ',
+                                        data: dataAmount,
+                                    },
+                                ]
+                            },
+                            options: {
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: 'Chart.js Bar Chart - Stacked'
+                                    },
+                                },
+                                responsive: true,
+                                scales: {
+                                    xAxes: [{
+                                        stacked: true
+                                    }],
+                                    yAxes: [{
+                                        stacked: true
+                                    }]
+                                }
+                            }
+                        });
 
-                }
-            })
-        }
+                        myChart.update()
+
+                    }
+                })
+            }
         })
     </script>
 </body>
