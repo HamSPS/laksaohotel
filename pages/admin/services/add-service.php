@@ -201,9 +201,6 @@ if (!$_SESSION['user'] || $_SESSION == null) {
             loadRoom('type');
 
             room.on('change', function() {
-                $('#startDate').prop("disabled", false);
-                $('#endDate').prop("disabled", false);
-
                 let roomId = $('#room').val();
                 loadFullDate(roomId);
             })

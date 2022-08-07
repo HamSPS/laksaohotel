@@ -19,10 +19,13 @@ try {
 
             if ($row['stt'] == 1) {
                 $status = '<span class="text-small badge badge-success">ກຳລັງເຂົ້າພັກ</span>';
-                $button = '<a href="#" onclick="checkOut('.$row['id'].')" class="btn btn-success btn-sm rounded-circle btnUpdate"><i class="fas fa-calendar-minus"></i></a>';
+                $button = '
+                <a href="#" onclick="checkOut('.$row['id'].')" class="btn btn-success btn-sm rounded-circle btnUpdate" data-toggle="tooltip" data-placement="top" title="ແຈ້ງອອກ"><i class="fas fa-calendar-minus"></i></a>
+                <a href="#" onclick="moveRoom('.$row['id'].')" class="btn btn-primary btn-sm rounded-circle btnUpdate" data-toggle="tooltip" data-placement="top" title="ຍ້າຍຫ້ອງພັກ"><i class="fas fa-pen"></i></a>
+                ';
             } else{
                 $status = '<span class="text-small badge badge-warning">ແຈ້ງອອກແລ້ວ</span>';
-                $button = '<a href="bill?print='.$row['id'].'" target="_blank" class="btn btn-primary btn-sm rounded-circle btnUpdate"><i class="fas fa-print"></i></a>';
+                $button = '<a href="bill?print='.$row['id'].'" target="_blank" class="btn btn-primary btn-sm rounded-circle btnUpdate" data-toggle="tooltip" data-placement="top" title="ພິມບິນ"><i class="fas fa-print"></i></a>';
             }
 
 

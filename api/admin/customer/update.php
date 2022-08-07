@@ -20,6 +20,7 @@ if (isset($_POST['action'])) {
                     'address' => $row['cus_address'],
                     'tel' => $row['cus_tel'],
                     'card_no' => $row['cardId_or_passport'],
+                    'username' => $row['username'],
                 ];
             }
 
@@ -34,8 +35,16 @@ if (isset($_POST['action'])) {
             $tel = $_POST['tel'];
             $address = $_POST['address'];
             $card_no = $_POST['card_no'];
+            $username = $_POST['username'];
+            $password = $_POST['password'];
 
-            $sql = "UPDATE tbcustomers SET cus_code='$code', cus_name='$name',cus_gender='$gender', cus_address='$address',cus_tel='$tel',cardId_or_passport='$card_no' WHERE id='$id'";
+            if($password != null || $password != ''){
+                $password = ", pwd = md5('$password')";
+            }else{
+                $password = '';
+            }
+
+            $sql = "UPDATE tbcustomers SET cus_code='$code', cus_name='$name',cus_gender='$gender', cus_address='$address',cus_tel='$tel',cardId_or_passport='$card_no',username='$username' $password WHERE id='$id'";
 
             if ($result = $conn->query($sql)) {
                 echo json_encode(array("statusCode" => 200, "message" => "ແກ້ໄຂຂໍ້ມູນສຳເລັດ"));

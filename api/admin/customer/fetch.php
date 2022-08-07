@@ -17,6 +17,7 @@ if ($result->num_rows > 0) {
             'cus_tel' => $row['cus_tel'],
             'cus_address' => $row['cus_address'],
             'card_no' => $row['cardId_or_passport'],
+            'username' => $row['username'],
         ];
     }
 

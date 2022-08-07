@@ -46,6 +46,10 @@ if(isset($_SESSION['user'])){
                 <p class="text-center">
                     ມີບັນຊີແລ້ວ ຫຼື ບໍ່? <a href="register" class="link-primary">ສະໝັກສະມາຊິກ</a>
                 </p>
+
+                <p class="text-center">
+                    <a href="../admin/login" class="link-success">ລະບົບຫຼັງບ້ານ</a>
+                </p>
             </form>
         </div>
     </div>

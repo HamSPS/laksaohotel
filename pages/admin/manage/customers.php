@@ -63,6 +63,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                                 <th data-field="cus_tel" data-sortable="true">ເບີໂທ</th>
                                                 <th data-field="cus_address" data-sortable="true">ທີ່ຢູ່</th>
                                                 <th data-field="card_no" data-sortable="true">ບັດປະຈຳຕົວ ຫຼື ໜັງສືຜ່ານແດນ</th>
+                                                <th data-field="username" data-sortable="true">Username</th>
                                                 <th data-field="operate" data-formatter="operateFormatter" class="text-center mx-0"></th>
                                             </tr>
                                         </thead>
@@ -127,6 +128,20 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                         ກະລຸນາປ້ອນບັດປະຈຳຕົວ ຫຼື ໜັງສືຜ່ານແດນ
                                     </small>
                                 </div>
+                                <div class="form-group">
+                                    <label for="tel"> Username <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="username" placeholder="Username" required>
+                                    <small class="invalid-feedback">
+                                        ກະລຸນາປ້ອນ Username
+                                    </small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tel">Password <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="password" placeholder="Password" required>
+                                    <small class="invalid-feedback">
+                                        ກະລຸນາປ້ອນ Password
+                                    </small>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">ຍົກເລີກ</button>
@@ -189,6 +204,20 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                         ກະລຸນາປ້ອນບັດປະຈຳຕົວ ຫຼື ໜັງສືຜ່ານແດນ
                                     </small>
                                 </div>
+                                <div class="form-group">
+                                    <label for="tel">Username <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="username_update" placeholder="Username" required>
+                                    <small class="invalid-feedback">
+                                        ກະລຸນາປ້ອນ Username
+                                    </small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tel">Password <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="password_update" placeholder="Password">
+                                    <small class="invalid-feedback">
+                                        ກະລຸນາປ້ອນ Password
+                                    </small>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">ຍົກເລີກ</button>
@@ -227,8 +256,10 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                 let $tel = $('#tel').val();
                 let $address = $('#address').val();
                 let $card_no = $('#card_no').val();
+                let $username = $('#username').val();
+                let $password = $('#password').val();
 
-                if ($code != null && $name != null && $gender != null && $card_no != null) {
+                if ($code != null && $name != null && $gender != null && $card_no != null && $username != null && $password != null) {
                     $.ajax({
                         url: 'http://localhost/laksaohotel/api/admin/customer/insert',
                         type: 'post',
@@ -239,6 +270,8 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                             'tel': $tel,
                             'address': $address,
                             'card_no': $card_no,
+                            'username': $username,
+                            'password': $password,
                         },
                         cache: false,
                         success: function(dataResult) {
@@ -251,6 +284,8 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                             $('#tel').val("");
                             $('#address').val("");
                             $('#card_no').val("");
+                            $('#username').val("");
+                            $('#password').val("");
 
                             $('#add_form').removeClass('was-validate');
 
@@ -294,8 +329,10 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                     let $tel = $('#tel_update').val();
                     let $address = $('#address_update').val();
                     let $card_no = $('#card_no_update').val();
+                    let $username = $('#username_update').val();
+                    let $password = $('#password_update').val();
 
-                    if ($code != '' && $name != '' && $gender != '' && $card_no != '') {
+                    if ($code != '' && $name != '' && $gender != '' && $card_no != '' && $username != '') {
                         $.ajax({
                             url: 'http://localhost/laksaohotel/api/admin/customer/update',
                             type: 'post',
@@ -308,6 +345,8 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                 'tel': $tel,
                                 'address': $address,
                                 'card_no': $card_no,
+                                'username': $username,
+                                'password': $password,
                             },
                             cache: false,
                             success: function(dataResult) {
@@ -321,6 +360,8 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                 $('#tel_update').val("");
                                 $('#address_update').val("");
                                 $('#card_no_update').val("");
+                                $('#username_update').val("");
+                                $('#password_update').val("");
 
                                 $('#edit_form').removeClass('was-validate');
 
@@ -381,6 +422,7 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                         $('#tel_update').val(result[0].tel);
                         $('#address_update').val(result[0].address);
                         $('#card_no_update').val(result[0].card_no);
+                        $('#username_update').val(result[0].username);
 
                         $('#EditModal').modal('show');
 

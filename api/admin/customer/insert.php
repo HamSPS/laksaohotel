@@ -8,8 +8,10 @@ try {
     $tel = $_POST['tel'];
     $address = $_POST['address'];
     $card_no = $_POST['card_no'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-    $sql = "INSERT INTO tbcustomers SET cus_code='$code', cus_name='$name',cus_gender='$gender', cus_address='$address',cus_tel='$tel',cardId_or_passport='$card_no'";
+    $sql = "INSERT INTO tbcustomers SET cus_code='$code', cus_name='$name',cus_gender='$gender', cus_address='$address',cus_tel='$tel',cardId_or_passport='$card_no',username='$username',pwd='$password'";
 
     if ($result = $conn->query($sql)) {
         echo json_encode(array("statusCode" => 200, "message" => "ເພີ່ມຂໍ້ມູນສຳເລັດ"));

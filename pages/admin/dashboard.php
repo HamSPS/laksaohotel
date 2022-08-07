@@ -24,9 +24,9 @@ if (!$_SESSION['user'] || $_SESSION == null) {
     ?>
 
     <style>
-        .ui-datepicker-calendar {
-            display: none;
-        }
+    .ui-datepicker-calendar {
+        display: none;
+    }
     </style>
 </head>
 
@@ -35,7 +35,8 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="<?= $path ?>assets/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+            <img class="animation__shake" src="<?= $path ?>assets/dist/img/AdminLTELogo.png" alt="AdminLTELogo"
+                height="60" width="60">
         </div>
 
         <!-- Navbar -->
@@ -86,7 +87,9 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                 <div class="card-header">
                                     <h3 class="card-title">ກາຟສະແດງສະຖິຕິການເຂົ້າພັກ</h3>
                                     <div class="card-tools d-flex">
-                                        <input type="text" name="yearChart" id="yearChart" class="form-control form-control-sm ml-4" value="<?= date('Y') ?>" style="max-width: 100px">
+                                        <input type="text" name="yearChart" id="yearChart"
+                                            class="form-control form-control-sm ml-4" value="<?= date('Y') ?>"
+                                            style="max-width: 100px">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
                                         </button>
@@ -108,7 +111,9 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                 <div class="card-header">
                                     <h3 class="card-title">ກາຟສະແດງລາຍຮັບ</h3>
                                     <div class="card-tools d-flex">
-                                        <input type="text" name="yearRevenue" id="yearRevenue" class="form-control form-control-sm ml-4" value="<?= date('Y') ?>" style="max-width: 100px">
+                                        <input type="text" name="yearRevenue" id="yearRevenue"
+                                            class="form-control form-control-sm ml-4" value="<?= date('Y') ?>"
+                                            style="max-width: 100px">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-minus"></i>
                                         </button>
@@ -145,23 +150,23 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
 
     <script>
-        $(document).ready(function() {
+    $(document).ready(function() {
 
-            $('#yearChart').datepicker({
-                format: "yyyy",
-                viewMode: "years",
-                minViewMode: "years"
-            });
+        $('#yearChart').datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years"
+        });
 
-            $.ajax({
-                url: 'http://localhost/laksaohotel/api/admin/index?booking',
-                cache: false,
-                success: function(data) {
+        $.ajax({
+            url: 'http://localhost/laksaohotel/api/admin/index?booking',
+            cache: false,
+            success: function(data) {
 
-                    let html = '';
-                    let result = JSON.parse(data);
-                    for (let i = 0; i < result.length; i++) {
-                        html = `<div class="small-box bg-info">
+                let html = '';
+                let result = JSON.parse(data);
+                for (let i = 0; i < result.length; i++) {
+                    html = `<div class="small-box bg-info">
                                             <div class="inner">
                                                 <h3>${result[i].count}</h3>
                                                 <p>ລາຍການຈອງ</p>
@@ -173,20 +178,20 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                                 ເພີ່ມເຕີມ <i class="fas fa-arrow-circle-right"></i>
                                             </a>
                                         </div>`;
-                    }
-                    $('#showBook').html(html);
                 }
-            })
+                $('#showBook').html(html);
+            }
+        })
 
-            $.ajax({
-                url: 'http://localhost/laksaohotel/api/admin/index?checkIn',
-                cache: false,
-                success: function(data) {
+        $.ajax({
+            url: 'http://localhost/laksaohotel/api/admin/index?checkIn',
+            cache: false,
+            success: function(data) {
 
-                    let html = '';
-                    let result = JSON.parse(data);
-                    for (let i = 0; i < result.length; i++) {
-                        html = `<div class="small-box bg-primary">
+                let html = '';
+                let result = JSON.parse(data);
+                for (let i = 0; i < result.length; i++) {
+                    html = `<div class="small-box bg-primary">
                                             <div class="inner">
                                                 <h3>${result[i].count}</h3>
                                                 <p>ລາຍການເຂົ້າພັກ</p>
@@ -198,21 +203,21 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                                 ເພີ່ມເຕີມ <i class="fas fa-arrow-circle-right"></i>
                                             </a>
                                         </div>`;
-                    }
-                    $('#showCheck').html(html);
-
                 }
-            })
+                $('#showCheck').html(html);
 
-            $.ajax({
-                url: 'http://localhost/laksaohotel/api/admin/index?employee',
-                cache: false,
-                success: function(data) {
+            }
+        })
 
-                    let html = '';
-                    let result = JSON.parse(data);
-                    for (let i = 0; i < result.length; i++) {
-                        html = `<div class="inner">
+        $.ajax({
+            url: 'http://localhost/laksaohotel/api/admin/index?employee',
+            cache: false,
+            success: function(data) {
+
+                let html = '';
+                let result = JSON.parse(data);
+                for (let i = 0; i < result.length; i++) {
+                    html = `<div class="inner">
                                     <h3>${result[i].count}</h3>
                                     <p>ຜູ້ໃຊ້ທັງໝົດ</p>
                                 </div>
@@ -222,21 +227,21 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                 <a href="manage/employees" class="small-box-footer">
                                     ເພີ່ມເຕີມ <i class="fas fa-arrow-circle-right"></i>
                                 </a>`;
-                    }
-                    $('#showEmployee').html(html);
-
                 }
-            })
+                $('#showEmployee').html(html);
 
-            $.ajax({
-                url: 'http://localhost/laksaohotel/api/admin/index?customer',
-                cache: false,
-                success: function(data) {
+            }
+        })
 
-                    let html = '';
-                    let result = JSON.parse(data);
-                    for (let i = 0; i < result.length; i++) {
-                        html = ` <div class="inner">
+        $.ajax({
+            url: 'http://localhost/laksaohotel/api/admin/index?customer',
+            cache: false,
+            success: function(data) {
+
+                let html = '';
+                let result = JSON.parse(data);
+                for (let i = 0; i < result.length; i++) {
+                    html = ` <div class="inner">
                                     <h3>${result[i].count}</h3>
                                     <p>ຈຳນວນລູກຄ້າ</p>
                                 </div>
@@ -246,185 +251,185 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                                 <a href="manage/customers" class="small-box-footer">
                                     ເພີ່ມເຕີມ <i class="fas fa-arrow-circle-right"></i>
                                 </a>`;
+                }
+                $('#showCustomer').html(html);
+
+            }
+        })
+
+        $('#yearChart').on('change', function() {
+            let showYear = $('#yearChart').val();
+            showChart(showYear);
+        })
+        $('#yearChart').on('change', function() {
+            let showYear = $('#yearChart').val();
+            showChart(showYear);
+        })
+        showChart();
+
+        function showChart(year = '') {
+            $.ajax({
+                url: 'http://localhost/laksaohotel/api/admin/report/service?chart',
+                type: 'post',
+                data: {
+                    year: year,
+                },
+                cache: false,
+                success: function(data) {
+
+                    let result = JSON.parse(data);
+
+                    let labelChart = [];
+                    let dataAmount = [];
+                    let dataCheckIn = [];
+                    let dataCheckOut = [];
+
+                    for (let i = 0; i < result.length; i++) {
+                        labelChart[i] = result[i].checkInMonth;
+                        dataAmount[i] = result[i].amount;
+                        dataCheckIn[i] = result[i].checkIn;
+                        dataCheckOut[i] = result[i].checkOut;
                     }
-                    $('#showCustomer').html(html);
+
+                    console.log(result[0].cancel);
+                    const ctx = document.getElementById('stackedBarChart').getContext('2d');
+                    const myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labelChart,
+                            datasets: [{
+                                    label: '# ຈຳນວນເຂົ້າພັກ',
+                                    data: dataCheckIn,
+                                    backgroundColor: '#4bc0c0'
+                                },
+                                {
+                                    label: '# ຈຳນວນແຈ້ງອອກ',
+                                    data: dataCheckOut,
+                                    backgroundColor: '#fcebbf'
+                                },
+                                {
+                                    label: '# ຈຳນວນທັງໝົດ',
+                                    data: dataAmount,
+                                },
+                            ]
+                        },
+                        options: {
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Chart.js Bar Chart - Stacked'
+                                },
+                            },
+                            responsive: true,
+                            scales: {
+                                xAxes: [{
+                                    stacked: true
+                                }],
+                                yAxes: [{
+                                    stacked: true
+                                }]
+                            }
+                        }
+                    });
+
+                    myChart.update()
 
                 }
             })
+        }
 
-            $('#yearChart').on('change', function() {
-                let showYear = $('#yearChart').val();
-                showChart(showYear);
-            })
-            $('#yearChart').on('change', function() {
-                let showYear = $('#yearChart').val();
-                showChart(showYear);
-            })
-            showChart();
+        $('#yearRevenue').datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years"
+        });
 
-            function showChart(year = '') {
-                $.ajax({
-                    url: 'http://localhost/laksaohotel/api/admin/report/service?chart',
-                    type: 'post',
-                    data: {
-                        year: year,
-                    },
-                    cache: false,
-                    success: function(data) {
-
-                        let result = JSON.parse(data);
-
-                        let labelChart = [];
-                        let dataAmount = [];
-                        let dataCheckIn = [];
-                        let dataCheckOut = [];
-
-                        for (let i = 0; i < result.length; i++) {
-                            labelChart[i] = result[i].checkInMonth;
-                            dataAmount[i] = result[i].amount;
-                            dataCheckIn[i] = result[i].checkIn;
-                            dataCheckOut[i] = result[i].checkOut;
-                        }
-
-                        console.log(result[0].cancel);
-                        const ctx = document.getElementById('stackedBarChart').getContext('2d');
-                        const myChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: labelChart,
-                                datasets: [{
-                                        label: '# ຈຳນວນເຂົ້າພັກ',
-                                        data: dataCheckIn,
-                                        backgroundColor: '#4bc0c0'
-                                    },
-                                    {
-                                        label: '# ຈຳນວນແຈ້ງອອກ',
-                                        data: dataCheckOut,
-                                        backgroundColor: '#fcebbf'
-                                    },
-                                    {
-                                        label: '# ຈຳນວນທັງໝົດ',
-                                        data: dataAmount,
-                                    },
-                                ]
-                            },
-                            options: {
-                                plugins: {
-                                    title: {
-                                        display: true,
-                                        text: 'Chart.js Bar Chart - Stacked'
-                                    },
-                                },
-                                responsive: true,
-                                scales: {
-                                    xAxes: [{
-                                        stacked: true
-                                    }],
-                                    yAxes: [{
-                                        stacked: true
-                                    }]
-                                }
-                            }
-                        });
-
-                        myChart.update()
-
-                    }
-                })
-            }
-
-            $('#yearRevenue').datepicker({
-                format: "yyyy",
-                viewMode: "years",
-                minViewMode: "years"
-            });
-
-            $('#yearRevenue').on('change', function() {
-                let showYear = $('#yearRevenue').val();
-                revenueChart(showYear);
-            })
-            revenueChart();
-
-            function revenueChart(year = '') {
-                $.ajax({
-                    url: 'http://localhost/laksaohotel/api/admin/report/revenue?chart',
-                    type: 'post',
-                    data: {
-                        year: year,
-                    },
-                    cache: false,
-                    success: function(data) {
-
-                        let result = JSON.parse(data);
-
-                        let labelChart = [];
-                        let dataAmount = [];
-
-                        for (let i = 0; i < result.length; i++) {
-                            labelChart[i] = result[i].date;
-                            dataAmount[i] = result[i].amount;
-                        }
-
-                        const ctx = document.getElementById('LineChart').getContext('2d');
-                        const myChart = new Chart(ctx, {
-                            type: 'line',
-                            data: {
-                                labels: labelChart,
-                                datasets: [{
-                                    label: '# ຈຳນວນລາຍຮັບຕໍ່ເດືອນ',
-                                    data: dataAmount,
-                                    backgroundColor: '#4bc0c0'
-                                }, ]
-                            },
-                            options: {
-                                plugins: {
-                                    title: {
-                                        display: true,
-                                        text: 'Chart.js Bar Chart - Stacked'
-                                    },
-                                },
-                                responsive: true,
-                                scales: {
-                                    xAxes: [{
-                                        stacked: true
-                                    }],
-                                    yAxes: [{
-                                        stacked: true
-                                    }]
-                                }
-                            }
-                        });
-
-                        myChart.update()
-
-                    }
-                })
-            }
-
+        $('#yearRevenue').on('change', function() {
+            let showYear = $('#yearRevenue').val();
+            revenueChart(showYear);
         })
-        // $(function() {
-        //-------------
-        //- BAR CHART -
-        //-------------
-        //     var barChartCanvas = $('#barChart').get(0).getContext('2d')
-        //     var barChartData = $.extend(true, {}, areaChartData)
-        //     var temp0 = areaChartData.datasets[0]
-        //     var temp1 = areaChartData.datasets[1]
-        //     barChartData.datasets[0] = temp1
-        //     barChartData.datasets[1] = temp0
+        revenueChart();
 
-        //     var barChartOptions = {
-        //         responsive: true,
-        //         maintainAspectRatio: false,
-        //         datasetFill: false
-        //     }
+        function revenueChart(year = '') {
+            $.ajax({
+                url: 'http://localhost/laksaohotel/api/admin/report/revenue?chart',
+                type: 'post',
+                data: {
+                    year: year,
+                },
+                cache: false,
+                success: function(data) {
 
-        //     new Chart(barChartCanvas, {
-        //         type: 'bar',
-        //         data: barChartData,
-        //         options: barChartOptions
-        //     })
-        // })
+                    let result = JSON.parse(data);
+
+                    let labelChart = [];
+                    let dataAmount = [];
+
+                    for (let i = 0; i < result.length; i++) {
+                        labelChart[i] = result[i].date;
+                        dataAmount[i] = result[i].amount;
+                    }
+
+                    const ctx = document.getElementById('LineChart').getContext('2d');
+                    const myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labelChart,
+                            datasets: [{
+                                label: '# ຈຳນວນລາຍຮັບຕໍ່ເດືອນ',
+                                data: dataAmount,
+                                backgroundColor: '#4bc0c0'
+                            }, ]
+                        },
+                        options: {
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Chart.js Bar Chart - Stacked'
+                                },
+                            },
+                            responsive: true,
+                            scales: {
+                                xAxes: [{
+                                    stacked: true
+                                }],
+                                yAxes: [{
+                                    stacked: true
+                                }]
+                            }
+                        }
+                    });
+
+                    myChart.update()
+
+                }
+            })
+        }
+
+    })
+    // $(function() {
+    //-------------
+    //- BAR CHART -
+    //-------------
+    //     var barChartCanvas = $('#barChart').get(0).getContext('2d')
+    //     var barChartData = $.extend(true, {}, areaChartData)
+    //     var temp0 = areaChartData.datasets[0]
+    //     var temp1 = areaChartData.datasets[1]
+    //     barChartData.datasets[0] = temp1
+    //     barChartData.datasets[1] = temp0
+
+    //     var barChartOptions = {
+    //         responsive: true,
+    //         maintainAspectRatio: false,
+    //         datasetFill: false
+    //     }
+
+    //     new Chart(barChartCanvas, {
+    //         type: 'bar',
+    //         data: barChartData,
+    //         options: barChartOptions
+    //     })
+    // })
     </script>
 </body>
 

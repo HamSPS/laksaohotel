@@ -33,7 +33,6 @@ if (isset($_GET['month'])) {
     try {
         $sql = "SELECT p.id, DATE_FORMAT(pay_date,'%M-%Y') AS payDate,SUM(amount) AS amount, SUM(pay) AS pay, SUM(DATEDIFF(check_out_date,check_in_date) + 1) AS totalDate FROM payments p
             LEFT JOIN tbservices s ON p.service_id=s.id
-            LEFT JOIN booking b ON s.book_id=b.id
             GROUP BY MONTH(pay_date)";
 
         $result = $conn->query($sql);
@@ -62,7 +61,6 @@ if (isset($_GET['year'])) {
     try {
         $sql = "SELECT p.id, DATE_FORMAT(pay_date,'%Y') AS payDate,SUM(amount) AS amount, SUM(pay) AS pay, SUM(DATEDIFF(check_out_date,check_in_date) + 1) AS totalDate FROM payments p
             LEFT JOIN tbservices s ON p.service_id=s.id
-            LEFT JOIN booking b ON s.book_id=b.id
             GROUP BY YEAR(pay_date)";
 
         $result = $conn->query($sql);

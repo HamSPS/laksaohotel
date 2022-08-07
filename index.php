@@ -50,15 +50,10 @@ $path = "";
                 <div class="col-md-8 blog-main">
                     <div class="blog-post">
                         <h2 class="blog-post-title">ກ່ຽວກັບໂຮງແຮມ</h2>
-                        <p class="blog-post-meta">January 1, 2014 by <a href="#">Mark</a></p>
-
-                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit nemo tempora consequuntur obcaecati iure id dolorem delectus in? Soluta ea fugiat repellendus in assumenda rerum aliquam labore nihil sequi optio?</p>
-                        
-                        <blockquote>
-                            <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        </blockquote>
-                        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-                        
+                        <!-- Edit -->
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam nulla, odio aut quam beatae reprehenderit ipsum neque quaerat non excepturi eligendi provident impedit vitae dolor facere tempora molestiae cupiditate adipisci!</p>
+                        <!-- end Edit -->
+                       
                     </div><!-- /.blog-post -->
 
                 </div><!-- /.blog-main -->
@@ -72,7 +67,6 @@ $path = "";
                     <div class="p-3">
                         <h4 class="font-italic">ຕິດຕາມ</h4>
                         <ol class="list-unstyled">
-                            <li><a href="#">GitHub</a></li>
                             <li><a href="#">Twitter</a></li>
                             <li><a href="#">Facebook</a></li>
                         </ol>

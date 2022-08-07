@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-6">
                 <h4>ຂໍ້ມູນຕິດຕໍ່</h4>
-                <p>ສະຖານທີ່: Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <p>ສະຖານທີ່: Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> <!--  Edit -->
                 <p>ເບີໂທ: +85620 xxxx xxxx</p>
                 <p>ອີເມວ: example@gmail.com</p>
             </div>

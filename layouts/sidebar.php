@@ -110,12 +110,6 @@ echo $_SESSION['role'];
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= $path ?>pages/admin/report/service" class="nav-link <?= $IsActive == 11 ? 'active' : '' ?>">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>ລາຍງານຂໍ້ມູນບໍລິການ</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="<?= $path ?>pages/admin/report/booking" class="nav-link <?= $IsActive == 12 ? 'active' : '' ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>ລາຍງານຂໍ້ມູນການຈອງ</p>
@@ -124,7 +118,7 @@ echo $_SESSION['role'];
                         <li class="nav-item">
                             <a href="<?= $path ?>pages/admin/report/check-in" class="nav-link <?= $IsActive == 13 ? 'active' : '' ?>">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>ລາຍງານຂໍ້ມູນການເຂົ້າພັກ</p>
+                                <p>ລາຍງານຂໍ້ມູນບໍລິການ</p>
                             </a>
                         </li>
                         <li class="nav-item">

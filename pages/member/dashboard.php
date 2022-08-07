@@ -50,59 +50,8 @@ if (!$_SESSION['user'] || $_SESSION == null) {
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-                    <div class="row mt-4">
-                        <div class="col-lg-3 col-6">
-
-                            <div id="showBook">
-
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-6">
-
-                            <div id="showCheck"></div>
-                        </div>
-
-                        <div class="col-lg-3 col-6">
-
-                            <div id="showEmployee" class="small-box bg-warning">
-
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-6">
-
-                            <div id="showCustomer" class="small-box bg-danger">
-
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card card-success">
-                                <div class="card-header">
-                                    <h3 class="card-title">ກາຟສະແດງຈຳນວນແຂງເຂົ້າພັກໃນແຕ່ລະເດືອນ</h3>
-                                    <div class="card-tools">
-                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart">
-                                        <input type="number" name="" id="yearChart" class="form-control w-25" placeholder="ເລືອກປີສະແດງ" />
-                                        <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                    <div class="d-flex justify-content-center align-items-center" style="height: 50vh">
+                        <h1>ໂຮງແຮມສະບາຍດີຫຼັກ 20 ຍິນດີຕ້ອນຮັບ</h1>
                     </div>
                 </div><!-- /.container-fluid -->
             </section>

@@ -116,6 +116,36 @@ if (!$_SESSION['user'] || $_SESSION == null) {
                 </div>
             </form>
 
+            <!-- Move Form -->
+            <form id="moveForm" novalidate class="needs-validation">
+                <div class="modal fade" id="moveModal" tabindex="-1" role="dialog" aria-labelledby="moveModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="moveModalLabel">ຍ້າຍຫ້ອງພັກ</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="max-height: 75vh;overflow-y: scroll;">
+                                <div class="form-group">
+                                    <label for="">ເລືອກປະເພດຫ້ອງພັກ</label>
+                                    <select name="roomType" id="roomType" class="selectpicker form-control" title="ເລືອກປະເພດຫ້ອງພັກ" required></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">ເລືອກຫ້ອງພັກໃໝ່</label>
+                                    <select name="room" id="room" class="selectpicker form-control" title="ເລືອກຫ້ອງພັກ" required></select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">ປິດ</button>
+                                <button type="submit" class="btn btn-success">ບັນທຶກ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
             <div id="printerDiv" style="display:none"></div>
             <!-- /.content -->
         </div>
@@ -213,6 +243,53 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
                 }
             }
+        });
+
+        $('#moveForm').on('submit', function(e) {
+            e.preventDefault();
+
+            let roomId = room.val();
+
+            if (moveId !== '' && moveId !== null) {
+                $.ajax({
+                    url: 'http://localhost/laksaohotel/api/admin/services/move',
+                    type: 'post',
+                    data: {
+                        id: moveId,
+                        roomId: roomId,
+                    },
+                    cache: false,
+                    success: function(result) {
+                        let data = JSON.parse(result);
+                        $('#moveModal').modal('hide');
+
+                        $('.data-table').bootstrapTable('refresh');
+
+                        if (data[0].statusCode === 200) {
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: data[0].message,
+                                showConfirmButton: false,
+                                timer: 3000,
+                                toast: true,
+                                timerProgressBar: true,
+                            });
+                        } else {
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'error',
+                                title: data[0].message,
+                                showConfirmButton: false,
+                                timer: 3000,
+                                toast: true,
+                                timerProgressBar: true,
+                            });
+                        }
+
+                    }
+                });
+            }
         })
 
 
@@ -254,21 +331,53 @@ if (!$_SESSION['user'] || $_SESSION == null) {
 
         }
 
+        function moveRoom(id) {
+            $('#moveModal').modal('show');
+            moveId = id;
+        }
+
         function printBill(id) {
             var div = document.getElementById("printerDiv");
             div.innerHTML = '<iframe src="bill" onload="this.contentWindow.print();"></iframe>';
         }
 
-        function operateFormatter(value, row, index) {
 
-            return [
-                `
-            <a href="#" onclick="checkOut('${row.id}')" class="btn btn-success btn-sm rounded-circle btnUpdate"><i class="fas fa-calendar-minus"></i></a>
-            <a href="bill?print=${row.id}" target="_blank" class="btn btn-primary btn-sm rounded-circle btnUpdate"><i class="fas fa-print"></i></a>
-            `
-            ].join('')
+        loadRoom('type');
+        var moveId = '';
+        var type = $('#roomType').selectpicker();
+        var room = $('#room').selectpicker();
+
+        $('#roomType').on('change', function() {
+            let id = type.val();
+            loadRoom('room', id);
+        })
+
+        function loadRoom(load, id = '') {
+
+            $.ajax({
+                url: 'http://localhost/laksaohotel/api/admin/services/load?' + load,
+                type: 'post',
+                data: {
+                    id: id,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    let html = '';
+                    for (let count = 0; count < data.length; count++) {
+                        html += `<option value="${data[count].id}">${data[count].name}</option> `;
+                    }
+
+                    if (load === 'type') {
+                        type.html(html);
+                        type.selectpicker('refresh');
+                    } else {
+                        room.html(html);
+                        room.selectpicker('refresh');
+                    }
+
+                }
+            })
         }
-        // <a href="#" onclick="cancelBook('${row.id}')" class="btn btn-danger btn-sm rounded-circle btnUpdate"><i class="fa fa-times"></i></a>
     </script>
 </body>
 
