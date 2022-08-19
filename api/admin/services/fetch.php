@@ -2,11 +2,20 @@
 include '../../config.php';
 
 try {
+
+    $where = '';
+    if(isset($_GET['all'])){
+        $where = '';
+    }else{
+        $where = 'WHERE s.stt=1';
+    }
+
     $stmt = "SELECT s.id,sv_date,check_in_date,check_out_date,cus_name,emp_name,room_id,room_no,type_name,price,stt FROM tbservices s
     LEFT JOIN tbcustomers c ON s.customer_id=c.id
     LEFT JOIN tbemployees e ON s.employee_id=e.id
     LEFT JOIN rooms r ON s.room_id=r.id
     LEFT JOIN room_type t ON r.type_id=t.id
+    $where
     ORDER BY stt ASC, id DESC";
     $result = $conn->query($stmt);
 
@@ -25,7 +34,8 @@ try {
                 ';
             } else{
                 $status = '<span class="text-small badge badge-warning">ແຈ້ງອອກແລ້ວ</span>';
-                $button = '<a href="bill?print='.$row['id'].'" target="_blank" class="btn btn-primary btn-sm rounded-circle btnUpdate" data-toggle="tooltip" data-placement="top" title="ພິມບິນ"><i class="fas fa-print"></i></a>';
+                // $button = '<a href="bill?print='.$row['id'].'" target="_blank" class="btn btn-primary btn-sm rounded-circle btnUpdate" data-toggle="tooltip" data-placement="top" title="ພິມບິນ"><i class="fas fa-print"></i></a>';
+                $button = '<a href="#" onclick="printBill('. $row['id'] .')" class="btn btn-primary btn-sm rounded-circle btnUpdate" data-toggle="tooltip" data-placement="top" title="ພິມບິນ"><i class="fas fa-print"></i></a>';
             }
 
 

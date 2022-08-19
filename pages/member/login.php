@@ -104,7 +104,7 @@ if(isset($_SESSION['user'])){
                             title: 'ເຂົ້າສູ່ລະບົບສຳເລັດ',
                             showConfirmButton: false,
                             timer: 1500
-                        }).then(() => window.location.href = "dashboard")
+                        }).then(() => window.location.href = "history")
                     } else {
                         Swal.fire({
                             position: 'center',

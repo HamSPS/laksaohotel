@@ -63,7 +63,7 @@
                             <i class="fas fa-user"></i> <?= $_SESSION['fullname'] ?>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="<?= $path ?>pages/member/dashboard"><i class="fas fa-chart-bar"></i> ເບິ່ງລາຍການຈອງ</a></a>
+                            <a class="dropdown-item text-success" href="<?= $path ?>pages/member/history"><i class="fas fa-clock"></i> ປະຫວັດການຈອງ</a></a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> ອອກຈາກລະບົບ</a></a>
                         </div>
